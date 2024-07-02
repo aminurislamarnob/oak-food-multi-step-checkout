@@ -55,8 +55,9 @@ class Checkout {
             WC()->session->set_customer_session_cookie( true );
         }
 
-        // Store custom field value in session
+        // Store first step validation values in wc session
         WC()->session->set( 'oak_billing_email', $email );
+        WC()->session->set( 'is_validate_oak_first_step', 'yes' );
     
         // You can perform additional processing here, such as saving the email to session or database
     
