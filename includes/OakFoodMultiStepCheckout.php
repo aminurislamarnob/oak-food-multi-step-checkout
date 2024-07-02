@@ -212,6 +212,8 @@ final class OakFoodMultiStepCheckout {
      */
     public function init_classes() {
         $this->container['scripts'] = new Assets();
+        $this->container['helpers'] = new Helpers();
+        $this->container['checkout'] = new Checkout();
     }
 
     /**

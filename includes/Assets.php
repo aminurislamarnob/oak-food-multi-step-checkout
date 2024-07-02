@@ -38,7 +38,7 @@ class Assets {
         $frontend_script    = OAK_FOOD_MULTI_STEP_CHECKOUT_PLUGIN_ASSET . '/frontend/script.js';
 
         wp_register_script( 'oak_food_multi_step_checkout_admin_script', $admin_script, [], filemtime( OAK_FOOD_MULTI_STEP_CHECKOUT_DIR . '/assets/admin/script.js' ), true );
-        wp_register_script( 'oak_food_multi_step_checkout_script', $frontend_script, [], filemtime( OAK_FOOD_MULTI_STEP_CHECKOUT_DIR . '/assets/frontend/script.js' ), true );
+        wp_register_script( 'oak_food_multi_step_checkout_script', $frontend_script, ['jquery'], filemtime( OAK_FOOD_MULTI_STEP_CHECKOUT_DIR . '/assets/frontend/script.js' ), true );
     }
 
     /**
@@ -74,7 +74,10 @@ class Assets {
     public function enqueue_front_scripts() {
         wp_enqueue_script( 'oak_food_multi_step_checkout_script' );
         wp_localize_script(
-            'oak_food_multi_step_checkout_script', 'Oak_Food_Multi_Step_Checkout', []
+            'oak_food_multi_step_checkout_script', 'Oak_Food_Multi_Step_Checkout', [
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('oak-ajax-nonce')
+            ]
         );
     }
 }
