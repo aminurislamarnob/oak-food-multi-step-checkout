@@ -11,7 +11,7 @@ class Helpers {
 	public static function get_loggedin_user_email() {
 		// Check if WooCommerce session exists and has email.
 		if ( WC()->session->has_session() ) {
-			$oak_billing_email = WC()->session->get( 'oak_billing_email' );
+			$oak_billing_email = WC()->session->get( 'billing_email' );
 
 			if ( $oak_billing_email ) {
 				return $oak_billing_email;
