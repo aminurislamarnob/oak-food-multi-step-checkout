@@ -20,6 +20,7 @@ jQuery(document).ready(function($) {
                 if (response.success) {
                     $('.enter-email-step').hide();
                     $('.checkout-delivery-step').show();
+                    $('#fact_email').val(email);
                     // alert('Success: ' + response.data.message);
                 } else {
                     console.log(response);

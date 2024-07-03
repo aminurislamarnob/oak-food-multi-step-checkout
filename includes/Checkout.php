@@ -204,7 +204,7 @@ class Checkout {
 		$custom_password           = sanitize_text_field( $_POST['custom_password'] );
 		$different_billing_address = sanitize_text_field( $_POST['different_billing_address'] );
 
-		if ( empty( $fact_email ) ) {
+		if ( empty( $fact_email ) || ! is_email( $fact_email ) ) {
 			wp_send_json_error( array( 'message' => __( 'Please enter email address.', 'woocommerce' ) ) );
 		}
 
