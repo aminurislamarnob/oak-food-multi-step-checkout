@@ -31,18 +31,90 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
 ?>
 <form action="">
-    <div class="enter-email-step">
-        <h1><?php echo esc_html__('Checkout', 'oak-food-multi-step-checkout'); ?></h1>
-        <div class="form-row form-row-wide">
-            <label for="oak_billing_email" class="">
-                <?php echo esc_html__('Enter your email address to complete your order.', 'oak-food-multi-step-checkout'); ?><abbr class="required" title="required">*</abbr>
-            </label>
-            <span class="woocommerce-input-wrapper">
-                <input type="email" class="input-text " name="oak_billing_email" id="oak_billing_email" placeholder="<?php echo esc_attr('Your Email *'); ?>" value="<?php echo esc_attr(Helpers::get_loggedin_user_email()); ?>">
-            </span>
-        </div>
-        <button id="checkout-first-step-btn" class="button next-btn">Next Page</button>
-    </div>
+	<div class="enter-email-step">
+		<h1><?php echo esc_html__( 'Checkout', 'oak-food-multi-step-checkout' ); ?></h1>
+		<div class="form-row form-row-wide">
+			<label for="oak_billing_email" class="">
+				<?php echo esc_html__( 'Enter your email address to complete your order.', 'oak-food-multi-step-checkout' ); ?><abbr class="required" title="required">*</abbr>
+			</label>
+			<span class="woocommerce-input-wrapper">
+				<input type="email" class="input-text " name="oak_billing_email" id="oak_billing_email" placeholder="<?php echo esc_attr( 'Your Email *' ); ?>" value="<?php echo esc_attr( Helpers::get_loggedin_user_email() ); ?>">
+			</span>
+		</div>
+		<button id="checkout-first-step-btn" class="button next-btn"><?php echo esc_html__( 'Next Page', 'oak-food-multi-step-checkout' ); ?></button>
+	</div>
+	<div class="checkout-delivery-step">
+		<div class="col2-set">
+			<div class="col-1">
+				<div class="oak-delivery-fields">
+					<div class="form-row form-row-wide">
+						<input type="radio" name="delivery_type" id="delivery_type" checked>
+						<label for="delivery_type"><?php echo esc_html__( 'Delivery (home or to aother address)', 'oak-food-multi-step-checkout' ); ?></label>
+					</div>
+					<div class="address-fields-group">
+						<div class="form-row">
+							<label for="billing_postcode"><?php echo esc_html__( 'Postal Code', 'oak-food-multi-step-checkout' ); ?></label>
+							<span class="woocommerce-input-wrapper">
+								<input type="text" class="input-text postcode oak-required-field" name="billing_postcode" id="billing_postcode" value="<?php echo esc_attr( Helpers::get_wc_session_value_by_key( 'postcode' ) ); ?>">
+							</span>
+							<span class="error-message"></span>
+						</div>
+						<div class="form-row">
+							<label for="billing_house_no"><?php echo esc_html__( 'House No.', 'oak-food-multi-step-checkout' ); ?></label>
+							<span class="woocommerce-input-wrapper">
+								<input type="text" class="input-text oak-required-field house_no" name="billing_house_no" id="billing_house_no" value="<?php echo esc_attr( Helpers::get_wc_session_value_by_key( 'billing_house_no' ) ); ?>">
+							</span>
+							<span class="error-message"></span>
+						</div>
+						<div class="form-row">
+							<label for="billing_address_1"><?php echo esc_html__( 'Add', 'oak-food-multi-step-checkout' ); ?></label>
+							<span class="woocommerce-input-wrapper">
+								<input type="text" class="input-text oak-required-field billing_address" name="billing_address_1" id="billing_address_1" value="<?php echo esc_attr( Helpers::get_wc_session_value_by_key( 'billing_address' ) ); ?>">
+							</span>
+							<span class="error-message"></span>
+						</div>
+					</div>
+					<div class="example-address">
+						<div class="form-row form-row-wide">
+							<label><?php echo esc_html__( 'Delivery Address', 'oak-food-multi-step-checkout' ); ?></label>
+							<span class="woocommerce-input-wrapper">
+								<p><?php echo esc_html__( 'Example Address 125, city name, 465NZ Steenbergen', 'oak-food-multi-step-checkout' ); ?></p>
+							</span>
+							<span class="error-message"></span>
+						</div>
+					</div>
+					<div class="delivery-time-fields">
+						<div class="form-row form-row-first">
+							<label for="delivery_date"><?php echo esc_html__( 'Delivery Date', 'oak-food-multi-step-checkout' ); ?></label>
+							<span class="woocommerce-input-wrapper">
+								<input type="date" class="input-text oak-required-field" name="delivery_date" id="delivery_date" value="<?php echo esc_attr( Helpers::get_wc_session_value_by_key( 'delivery_date' ) ); ?>">
+							</span>
+							<span class="error-message"></span>
+						</div>
+						<div class="form-row form-row-last">
+							<label for="delivery_time"><?php echo esc_html__( 'Delivery Time', 'oak-food-multi-step-checkout' ); ?></label>
+							<span class="woocommerce-input-wrapper">
+								<select name="delivery_time" id="delivery_time">
+									<option value="Between 08:00 and 22:00">Between 08:00 and 22:00</option>
+									<option value="Between 09:00 and 12:00">Between 09:00 and 12:00</option>
+								</select>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="multi-step-buttons">
+					<a class="button prev-btn" href="<?php echo esc_url( wc_get_cart_url() ); ?>"><?php echo esc_html__( 'Back To Shopping Cart', 'oak-food-multi-step-checkout' ); ?></a>
+					<button id="delivery-step-next-btn" class="button next-btn"><?php echo esc_html__( 'Next', 'oak-food-multi-step-checkout' ); ?></button>
+				</div>
+			</div>
+			<div class="col-2">
+				<div class="oak-order-review">
+					<h3 class="oak-order-review-heading"><?php echo esc_html__( 'Your order', 'oak-food-multi-step-checkout' ); ?></h3>
+					<?php do_action( 'oak_woocommerce_checkout_order_review_table' ); ?>
+				</div>
+			</div>
+		</div>
+	</div>
 </form>
 <form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
 	<?php if ( $checkout->get_checkout_fields() ) : ?>
