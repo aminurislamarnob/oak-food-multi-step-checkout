@@ -7,8 +7,12 @@
 .woocommerce-additional-fields,
 div#customer_details,
 form.woocommerce-checkout,
-.oak-facts-section-wrapper {
+.oak-facts-section-wrapper, .oak-delivery-fields-wrapper.oak-d-none {
     display: none;
+}
+
+form.woocommerce-checkout.oak-d-block{
+    display: block;
 }
 
 .oak-checkout-login-form {
@@ -250,7 +254,7 @@ form.woocommerce-checkout,
 }
 
 .multi-step-buttons .next-btn,
-.multi-step-buttons .prev-btn {
+.multi-step-buttons .prev-btn, #place_order {
     display: flex !important;
     padding: 0.75rem 1rem;
     justify-content: center;
@@ -269,6 +273,15 @@ form.woocommerce-checkout,
 
 .multi-step-buttons .prev-btn {
     background-color: #323B49 !important;
+}
+
+#place_order:after {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14 5L21 12M21 12L14 19M21 12L3 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>') no-repeat;
+    background-size: cover; /* Adjust as needed */
 }
 
 .shop_table.woocommerce-checkout-review-order-table tr td {
@@ -364,6 +377,13 @@ form.woocommerce-checkout,
     display: flex;
     align-items: center;
     gap: 10px;
+}
+.woocommerce-invalid .oak-required-field {
+    border-color: #f44336!important;
+}
+
+.woocommerce-invalid span.error-message {
+    color: #f44336;
 }
 
 @media only screen and (max-width: 900px) {

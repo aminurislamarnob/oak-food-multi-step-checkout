@@ -15,10 +15,6 @@ class Checkout {
 		add_filter( 'woocommerce_checkout_fields', array( $this, 'remove_checkout_fields' ) );
 		remove_action( 'woocommerce_checkout_order_review', 'woocommerce_order_review', 10 );
 
-		// Handle checkout first step.
-		add_action( 'wp_ajax_handle_checkout_step', array( $this, 'handle_checkout_first_step' ) );
-		add_action( 'wp_ajax_nopriv_handle_checkout_step', array( $this, 'handle_checkout_first_step' ) );
-
 		// Handle checkout delivery step.
 		add_action( 'wp_ajax_handle_checkout_delivery_step', array( $this, 'handle_checkout_delivery_step' ) );
 		add_action( 'wp_ajax_nopriv_handle_checkout_delivery_step', array( $this, 'handle_checkout_delivery_step' ) );
@@ -28,6 +24,10 @@ class Checkout {
 		add_action( 'wp_ajax_nopriv_handle_checkout_fact_step', array( $this, 'handle_checkout_fact_step' ) );
 
 		add_action( 'woocommerce_checkout_create_order', array( $this, 'save_custom_info_on_order_create' ), 10, 2 );
+		add_action( 'woocommerce_checkout_order_processed', array( $this, 'remove_custom_session_key_after_order_created' ) );
+
+		// Change place order button text.
+		add_filter( 'woocommerce_order_button_text', array( $this, 'change_woocommerce_order_button_text' ), 100 );
 	}
 
 	/**
@@ -88,41 +88,6 @@ class Checkout {
 		$fields['account']['account_password']['required'] = false;
 
 		return $fields;
-	}
-
-	/**
-	 * Handle form submission of first step
-	 *
-	 * @return void
-	 */
-	public function handle_checkout_first_step() {
-		// Verify nonce for security.
-		if ( ! isset( $_POST['security'] ) || ! wp_verify_nonce( $_POST['security'], 'oak-ajax-nonce' ) ) {
-			wp_send_json_error( 'Nonce verification failed' );
-		}
-
-		// Handle email validation and other processing.
-		$email = sanitize_email( $_POST['email'] );
-
-		if ( empty( $email ) || ! is_email( $email ) ) {
-			wp_send_json_error( array( 'message' => __( 'Please enter a valid email address.', 'woocommerce' ) ) );
-		}
-
-		// Manage WooCommerce session.
-		if ( ! WC()->session->has_session() ) {
-			WC()->session->set_customer_session_cookie( true );
-		}
-
-		WC()->session->set( 'billing_email', $email );
-		WC()->session->set( 'is_validate_oak_first_step', 'yes' );
-
-		// Return success response.
-		$response_data = array(
-			'success' => true,
-			'message' => 'Email successfully validated and processed.',
-		);
-		wp_send_json_success( $response_data );
-		wp_die();
 	}
 
 	/**
@@ -202,7 +167,7 @@ class Checkout {
 		$phone                     = sanitize_text_field( $_POST['phone'] );
 		$fact_delivery_time        = sanitize_text_field( $_POST['fact_delivery_time'] );
 		$custom_password           = sanitize_text_field( $_POST['custom_password'] );
-		$different_billing_address = sanitize_text_field( $_POST['different_billing_address'] );
+		$different_billing_address = isset( $_POST['different_billing_address'] ) ? sanitize_text_field( $_POST['different_billing_address'] ) : '';
 
 		if ( empty( $fact_email ) || ! is_email( $fact_email ) ) {
 			wp_send_json_error( array( 'message' => __( 'Please enter email address.', 'woocommerce' ) ) );
@@ -220,6 +185,10 @@ class Checkout {
 			wp_send_json_error( array( 'message' => __( 'Please enter your phone number.', 'woocommerce' ) ) );
 		}
 
+		if ( ! is_user_logged_in() && empty( $custom_password ) ) {
+			wp_send_json_error( array( 'message' => __( 'Please enter an account password.', 'woocommerce' ) ) );
+		}
+
 		// Manage WooCommerce session.
 		if ( ! WC()->session->has_session() ) {
 			WC()->session->set_customer_session_cookie( true );
@@ -234,10 +203,25 @@ class Checkout {
 		WC()->session->set( 'different_billing_address', $different_billing_address );
 		WC()->session->set( 'is_validate_oak_fact_step', 'yes' );
 
+		$posted_data = array(
+			'account_username'   => $fact_email,
+			'account_password'   => $custom_password,
+			'billing_email'      => $fact_email,
+			'billing_first_name' => $first_name,
+			'billing_last_name'  => $last_name,
+			'createaccount'      => 'yes',
+		);
+
+		if ( ! is_user_logged_in() ) {
+			$create_customer = new CreateCustomer();
+			$create_customer->create_customer_on_checkout( $posted_data );
+		}
+
 		// Return success response.
 		$response_data = array(
-			'success' => true,
-			'message' => 'Facts successfully validated and processed.',
+			'success'                => true,
+			'is_need_to_page_reload' => WC()->session->get( 'reload_checkout' ),
+			'message'                => 'Facts successfully validated and processed.',
 		);
 		wp_send_json_success( $response_data );
 		wp_die();
@@ -309,5 +293,26 @@ class Checkout {
 		if ( ! empty( $different_billing_address ) ) {
 			$order->update_meta_data( 'different_billing_address', sanitize_text_field( $different_billing_address ) );
 		}
+	}
+
+	/**
+	 * Remove steps validation key from WC session.
+	 *
+	 * @return void
+	 */
+	public function remove_custom_session_key_after_order_created() {
+		if ( class_exists( 'WC_Session' ) ) {
+			unset( WC()->session->is_validate_oak_fact_step );
+			unset( WC()->session->is_validate_oak_delivery_step );
+		}
+	}
+
+	/**
+	 * Change placeorder button text.
+	 *
+	 * @return void
+	 */
+	public function change_woocommerce_order_button_text() {
+		return esc_html__( 'Pay', 'oak-food-multi-step-checkout' );
 	}
 }

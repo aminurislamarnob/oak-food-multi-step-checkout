@@ -38,7 +38,7 @@ class Assets {
 		$frontend_script = OAK_FOOD_MULTI_STEP_CHECKOUT_PLUGIN_ASSET . '/frontend/script.js';
 
 		wp_register_script( 'oak_food_multi_step_checkout_admin_script', $admin_script, array(), filemtime( OAK_FOOD_MULTI_STEP_CHECKOUT_DIR . '/assets/admin/script.js' ), true );
-		wp_register_script( 'oak_food_multi_step_checkout_script', $frontend_script, array( 'jquery' ), filemtime( OAK_FOOD_MULTI_STEP_CHECKOUT_DIR . '/assets/frontend/script.js' ), true );
+		wp_register_script( 'oak_food_multi_step_checkout_script', $frontend_script, array( 'jquery', 'jquery-ui-datepicker' ), filemtime( OAK_FOOD_MULTI_STEP_CHECKOUT_DIR . '/assets/frontend/script.js' ), true );
 	}
 
 	/**
@@ -52,6 +52,7 @@ class Assets {
 
 		wp_register_style( 'oak_food_multi_step_checkout_admin_style', $admin_style, array(), filemtime( OAK_FOOD_MULTI_STEP_CHECKOUT_DIR . '/assets/admin/style.css' ) );
 		wp_register_style( 'oak_food_multi_step_checkout_style', $frontend_style, array(), filemtime( OAK_FOOD_MULTI_STEP_CHECKOUT_DIR . '/assets/frontend/style.css' ) );
+		wp_register_style( 'jquery-ui-datepicker-theme', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css', array( 'oak_food_multi_step_checkout_style' ) );
 	}
 
 	/**
@@ -75,6 +76,7 @@ class Assets {
 	 */
 	public function enqueue_front_scripts() {
 		wp_enqueue_style( 'oak_food_multi_step_checkout_style' );
+		wp_enqueue_style( 'jquery-ui-datepicker-theme' );
 		wp_enqueue_script( 'oak_food_multi_step_checkout_script' );
 		wp_localize_script(
 			'oak_food_multi_step_checkout_script',

@@ -1,43 +1,10 @@
 jQuery(document).ready(function($) {
-    /*Get Email input*/
-    $('#checkout-first-step-btn').on('click', function(e) {
-        e.preventDefault();
 
-        // Get email input value
-        var email = $('#oak_billing_email').val();
-
-        // AJAX call
-        $.ajax({
-            type: 'POST',
-            url: Oak_Food_Multi_Step_Checkout.ajax_url,
-            data: {
-                action: 'handle_checkout_step',
-                email: email,
-                security: Oak_Food_Multi_Step_Checkout.nonce
-            },
-            success: function(response) {
-                // Check if request was successful
-                if (response.success) {
-                    $('.enter-email-step').hide();
-                    $('.checkout-delivery-step').show();
-                    $('#fact_email').val(email);
-                    // alert('Success: ' + response.data.message);
-                } else {
-                    console.log(response);
-                    // Display WooCommerce error notice
-                    // $('.woocommerce-error').remove(); // Remove existing notices
-                    // $('.woocommerce-message').remove();
-                    // $('form.cart').before('<div class="woocommerce-error">' + response.data.message + '</div>');
-                }
-            },
-            error: function(errorThrown) {
-                // Handle error
-                console.log('AJAX request failed');
-                console.log(errorThrown);
-            }
-        });
+     // Initialize datepicker
+     $('#delivery_date').datepicker({
+        dateFormat: 'yy-mm-dd' // Adjust date format as needed
     });
-
+    
     /*Get delivery info input*/
     $('#delivery-step-next-btn').on('click', function(e) {
         e.preventDefault();
@@ -56,7 +23,6 @@ jQuery(document).ready(function($) {
                 $(this).closest('.form-row').find('.error-message').text(fieldName + ' is required.').show();
             }
         });
-        console.log(isValid);
 
         // AJAX call
         if (isValid) {
@@ -86,6 +52,7 @@ jQuery(document).ready(function($) {
                         // alert('Success: ' + response.data.message);
                         $('.oak-delivery-fields-wrapper').hide();
                         $('.oak-facts-section-wrapper').show();
+                        $('.delivery-step-btn, .fact-step-btn').toggleClass('active');
                     } else {
                         console.log(response);
                         // Display WooCommerce error notice
@@ -148,10 +115,13 @@ jQuery(document).ready(function($) {
                 },
                 success: function(response) {
                     // Check if request was successful
-                    if (response.success) {
-                        // alert('Success: ' + response.data.message);
+                    if (response.success && response.data.is_need_to_page_reload == true) {
+                        console.log(response.is_need_to_page_reload);
+                        location.reload();
+                    }else if(response.success){
                         $('.oak-facts-section-wrapper').hide();
                         $('.woocommerce-checkout').show();
+                        $('.pm-step-btn, .fact-step-btn').toggleClass('active');
                     } else {
                         console.log(response);
                         // Display WooCommerce error notice
@@ -187,6 +157,19 @@ jQuery(document).ready(function($) {
         $('.oak-facts-email-row').toggle();
     });
 
-    //Always select create account checkbox
-    // $('input#createaccount').prop('checked', true);
+    // Toggle show hide checkout page login form
+    $('#facts-step-prev-btn').on('click', function(e) {
+        e.preventDefault();
+        $('.oak-facts-section-wrapper').toggle();
+        $('.oak-delivery-fields-wrapper ').toggle();
+        $('.fact-step-btn, .delivery-step-btn').toggleClass('active');
+    });
+    $('#pm-step-prev-btn').on('click', function(e) {
+        e.preventDefault();
+        console.log('test');
+        $('.oak-facts-section-wrapper').show();
+        $('form.woocommerce-checkout').removeClass('oak-d-block');
+        $('form.woocommerce-checkout').hide();
+        $('.pm-step-btn, .fact-step-btn').toggleClass('active');
+    });
 });

@@ -46,4 +46,19 @@ class Helpers {
 		}
 		return '';
 	}
+
+	/**
+	 * Check is payment method section is visible or not
+	 *
+	 * @return boolean
+	 */
+	public static function is_pm_visible() {
+		if ( WC()->session->has_session() ) {
+			$is_fact_step_validated = WC()->session->get( 'is_validate_oak_fact_step' );
+			if ( is_user_logged_in() && 'yes' === $is_fact_step_validated ) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
