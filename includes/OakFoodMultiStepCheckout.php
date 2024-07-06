@@ -211,10 +211,11 @@ final class OakFoodMultiStepCheckout {
 	 * @return void
 	 */
 	public function init_classes() {
-		$this->container['scripts']         = new Assets();
-		$this->container['helpers']         = new Helpers();
-		$this->container['create_customer'] = new CreateCustomer();
-		$this->container['checkout']        = new Checkout();
+		$this->container['scripts']           = new Assets();
+		$this->container['helpers']           = new Helpers();
+		$this->container['create_customer']   = new CreateCustomer();
+		$this->container['checkout']          = new Checkout();
+		$this->container['handle_order_meta'] = new HandleOrderMeta();
 	}
 
 	/**

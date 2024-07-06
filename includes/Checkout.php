@@ -28,6 +28,15 @@ class Checkout {
 
 		// Change place order button text.
 		add_filter( 'woocommerce_order_button_text', array( $this, 'change_woocommerce_order_button_text' ), 100 );
+
+		add_filter( 'woocommerce_endpoint_order-received_title', array( $this, 'remove_order_received_title' ), 100 );
+	}
+
+	public function remove_order_received_title( $title ) {
+		if ( is_wc_endpoint_url( 'order-received' ) || is_wc_endpoint_url( 'checkout' ) ) {
+			return ''; // Return an empty string to remove the title
+		}
+		return $title;
 	}
 
 	/**
@@ -53,6 +62,14 @@ class Checkout {
 
 		if ( str_contains( $template, $checkout_login_file ) ) {
 			$template = OAK_FOOD_MULTI_STEP_CHECKOUT_TEMPLATE_DIR . '/' . $checkout_login_file;
+			return $template;
+		}
+
+		// Override Thankyou file.
+		$checkout_thankyou_file = 'checkout/thankyou.php';
+
+		if ( str_contains( $template, $checkout_thankyou_file ) ) {
+			$template = OAK_FOOD_MULTI_STEP_CHECKOUT_TEMPLATE_DIR . '/' . $checkout_thankyou_file;
 			return $template;
 		}
 

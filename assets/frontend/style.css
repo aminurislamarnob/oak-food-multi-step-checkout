@@ -7,7 +7,7 @@
 .woocommerce-additional-fields,
 div#customer_details,
 form.woocommerce-checkout,
-.oak-facts-section-wrapper, .oak-delivery-fields-wrapper.oak-d-none {
+.oak-facts-section-wrapper, .oak-delivery-fields-wrapper.oak-d-none, body.woocommerce-checkout.woocommerce-page .entry-header {
     display: none;
 }
 
