@@ -236,13 +236,12 @@ class Checkout {
 	 */
 	public function save_custom_info_on_order_create( $order, $data ) {
 		// Retrieve custom data from session.
-		$billing_email   = WC()->session->get( 'billing_email' );
-		$postcode        = WC()->session->get( 'postcode' );
-		$billing_address = WC()->session->get( 'billing_address' );
-		$first_name      = WC()->session->get( 'first_name' );
-		$last_name       = WC()->session->get( 'last_name' );
-		$phone           = WC()->session->get( 'phone' );
-
+		$billing_email             = WC()->session->get( 'billing_email' );
+		$postcode                  = WC()->session->get( 'postcode' );
+		$billing_address           = WC()->session->get( 'billing_address' );
+		$first_name                = WC()->session->get( 'first_name' );
+		$last_name                 = WC()->session->get( 'last_name' );
+		$phone                     = WC()->session->get( 'phone' );
 		$delivery_type             = WC()->session->get( 'delivery_type' );
 		$billing_house_no          = WC()->session->get( 'billing_house_no' );
 		$delivery_date             = WC()->session->get( 'delivery_date' );
