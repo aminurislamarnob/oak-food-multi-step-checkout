@@ -4,30 +4,42 @@ jQuery(document).ready(function($) {
      $('#delivery_date').datepicker({
         dateFormat: 'yy-mm-dd' // Adjust date format as needed
     });
+
+    // Function to validate input fields and show error messages
+    function validateFields($fieldsWrapper, $errorContainer) {
+        var isValid = true;
+        
+        $fieldsWrapper.find('.oak-required-field').each(function() {
+            var $field = $(this);
+            var $formRow = $field.closest('.form-row');
+            var $errorMessage = $formRow.find('.error-message');
+
+            if ($field.val().trim() === '') {
+                isValid = false;
+                var fieldName = $formRow.find('label').text();
+                $formRow.addClass('woocommerce-invalid');
+                $errorMessage.text(fieldName + ' is required.').show();
+            } else {
+                $errorMessage.hide();
+                $formRow.removeClass('woocommerce-invalid');
+            }
+        });
+        
+        return isValid;
+    }
     
     /*Get delivery info input*/
     $('#delivery-step-next-btn').on('click', function(e) {
         e.preventDefault();
 
-        var isValid = true;
         var delivery_button = $(this);
         var error_message = $('.oak-delivery-fields-wrapper').find('.woocommerce-notices-wrapper');
 
         // Reset all previous error messages
         $('.error-message').text('').hide();
 
-        // Validate each required input field
-        $('.oak-delivery-fields .oak-required-field').each(function() {
-            if ($(this).val().trim() === '') {
-                isValid = false;
-                var fieldName = $(this).closest('.form-row').find('label').text();
-                $(this).closest('.form-row').addClass('woocommerce-invalid');
-                $(this).closest('.form-row').find('.error-message').text(fieldName + ' is required.').show();
-            }
-        });
-
         // AJAX call
-        if (isValid) {
+        if (validateFields($('.oak-delivery-fields'))) {
             var delivery_type = $('#delivery_type:checked').val();
             var postcode = $('.postcode').val();
             var billing_house_no = $('#billing_house_no').val();
@@ -75,25 +87,14 @@ jQuery(document).ready(function($) {
     $('#facts-step-next-btn').on('click', function(e) {
         e.preventDefault();
 
-        var isValid = true;
         var fact_button = $(this);
         var error_message = $('.oak-facts-section-wrapper').find('.woocommerce-notices-wrapper');
 
         // Reset all previous error messages
         $('.error-message').text('').hide();
 
-        // Validate each required input field
-        $('.oak-facts-fields .oak-required-field').each(function() {
-            if ($(this).val().trim() === '') {
-                isValid = false;
-                var fieldName = $(this).closest('.form-row').find('label').text();
-                $(this).closest('.form-row').addClass('woocommerce-invalid');
-                $(this).closest('.form-row').find('.error-message').text(fieldName + ' is required.').show();
-            }
-        });
-
         // AJAX call
-        if (isValid) {
+        if (validateFields($('.oak-facts-fields'))) {
             var fact_email = $('#fact_email').val();
             var first_name = $('#first_name').val();
             var last_name = $('#last_name').val();
@@ -172,13 +173,15 @@ jQuery(document).ready(function($) {
     });
     //Select delivery time value[End]
 
-    // Toggle show hide checkout page login form
+    // Goto facts previous page
     $('#facts-step-prev-btn').on('click', function(e) {
         e.preventDefault();
         $('.oak-facts-section-wrapper').toggle();
         $('.oak-delivery-fields-wrapper ').toggle();
         $('.fact-step-btn, .delivery-step-btn').toggleClass('active');
     });
+
+    //Goto payment method previous page
     $('#pm-step-prev-btn').on('click', function(e) {
         e.preventDefault();
         console.log('test');

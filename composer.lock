@@ -1835,12 +1835,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "e24508814f243ebece90a193a6e77b1f86f73849"
+                "reference": "71326b414d4b0ab6e4b12e993b98849126531dd9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/e24508814f243ebece90a193a6e77b1f86f73849",
-                "reference": "e24508814f243ebece90a193a6e77b1f86f73849",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/71326b414d4b0ab6e4b12e993b98849126531dd9",
+                "reference": "71326b414d4b0ab6e4b12e993b98849126531dd9",
                 "shasum": ""
             },
             "require": {
@@ -1908,7 +1908,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-07-02T07:22:32+00:00"
+            "time": "2024-07-04T21:25:09+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -2301,7 +2301,7 @@
         },
         {
             "name": "wp-phpunit/wp-phpunit",
-            "version": "6.5.4",
+            "version": "6.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-phpunit/wp-phpunit.git",
