@@ -91,7 +91,7 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 							<?php echo esc_html__( 'Follow Favorites', 'oak-food-multi-step-checkout' ); ?>
 						</li>
 						<li>
-							<img src="<?php echo esc_attr( pluginizelab_oak_food_multi_step_checkout()->get_asset( 'frontend/images/assets/check.svg' ) ); ?>" alt="<?php echo esc_attr__( 'Post Reviews', 'oak-food-multi-step-checkout' ); ?>">
+							<img src="<?php echo esc_attr( pluginizelab_oak_food_multi_step_checkout()->get_asset( 'frontend/images/check.svg' ) ); ?>" alt="<?php echo esc_attr__( 'Post Reviews', 'oak-food-multi-step-checkout' ); ?>">
 							<?php echo esc_html__( 'Post Reviews', 'oak-food-multi-step-checkout' ); ?>
 						</li>
 					</ul>

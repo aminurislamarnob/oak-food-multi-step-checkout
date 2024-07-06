@@ -116,7 +116,7 @@ jQuery(document).ready(function($) {
                 success: function(response) {
                     // Check if request was successful
                     if (response.success && response.data.is_need_to_page_reload == true) {
-                        console.log(response.is_need_to_page_reload);
+                        console.log(response.data.is_need_to_page_reload);
                         location.reload();
                     }else if(response.success){
                         $('.oak-facts-section-wrapper').hide();

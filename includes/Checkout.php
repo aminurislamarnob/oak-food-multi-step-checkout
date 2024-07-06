@@ -28,15 +28,6 @@ class Checkout {
 
 		// Change place order button text.
 		add_filter( 'woocommerce_order_button_text', array( $this, 'change_woocommerce_order_button_text' ), 100 );
-
-		add_filter( 'woocommerce_endpoint_order-received_title', array( $this, 'remove_order_received_title' ), 100 );
-	}
-
-	public function remove_order_received_title( $title ) {
-		if ( is_wc_endpoint_url( 'order-received' ) || is_wc_endpoint_url( 'checkout' ) ) {
-			return ''; // Return an empty string to remove the title
-		}
-		return $title;
 	}
 
 	/**
@@ -211,15 +202,6 @@ class Checkout {
 			WC()->session->set_customer_session_cookie( true );
 		}
 
-		WC()->session->set( 'billing_email', $fact_email );
-		WC()->session->set( 'first_name', $first_name );
-		WC()->session->set( 'last_name', $last_name );
-		WC()->session->set( 'phone', $phone );
-		WC()->session->set( 'delivery_time', $fact_delivery_time );
-		WC()->session->set( 'custom_password', $custom_password );
-		WC()->session->set( 'different_billing_address', $different_billing_address );
-		WC()->session->set( 'is_validate_oak_fact_step', 'yes' );
-
 		$posted_data = array(
 			'account_username'   => $fact_email,
 			'account_password'   => $custom_password,
@@ -233,6 +215,15 @@ class Checkout {
 			$create_customer = new CreateCustomer();
 			$create_customer->create_customer_on_checkout( $posted_data );
 		}
+
+		WC()->session->set( 'billing_email', $fact_email );
+		WC()->session->set( 'first_name', $first_name );
+		WC()->session->set( 'last_name', $last_name );
+		WC()->session->set( 'phone', $phone );
+		WC()->session->set( 'delivery_time', $fact_delivery_time );
+		WC()->session->set( 'custom_password', $custom_password );
+		WC()->session->set( 'different_billing_address', $different_billing_address );
+		WC()->session->set( 'is_validate_oak_fact_step', 'yes' );
 
 		// Return success response.
 		$response_data = array(
