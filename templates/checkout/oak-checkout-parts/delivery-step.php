@@ -8,6 +8,7 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 <div class="oak-delivery-fields-wrapper <?php echo Helpers::is_pm_visible() ? 'oak-d-none' : ''; ?>">
 	<div class="oak-delivery-fields">
 		<h3 class="common-subtitle"><?php echo esc_html__( 'Delivery', 'oak-food-multi-step-checkout' ); ?></h3>
+		<div class="woocommerce-notices-wrapper"></div>
 		<div class="common-box">
 			<div class="form-row form-row-wide">
 				<input type="radio" name="delivery_type" id="delivery_type" checked>
@@ -57,8 +58,9 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 					<label for="delivery_time"><?php echo esc_html__( 'Delivery Time', 'oak-food-multi-step-checkout' ); ?></label>
 					<span class="woocommerce-input-wrapper common-inputt">
 						<select name="delivery_time" id="delivery_time" class="common-inputt">
-							<option value="Between 08:00 and 22:00">Between 08:00 and 22:00</option>
-							<option value="Between 09:00 and 12:00">Between 09:00 and 12:00</option>
+							<?php foreach ( Helpers::get_delivery_times() as $key => $value ) { ?>
+							<option value="<?php echo esc_attr( $key ); ?>" <?php echo Helpers::get_wc_session_value_by_key( 'delivery_time' ) === $key ? 'selected' : ''; ?>><?php echo esc_html( $value ); ?></option>
+							<?php } ?>
 						</select>
 					</span>
 				</div>

@@ -23,7 +23,10 @@ if ( is_user_logged_in() || 'no' === get_option( 'woocommerce_enable_checkout_lo
 
 ?>
 <div class="woocommerce-form-login-toggle">
-	<a href="#" class="showlogin"><?php echo esc_html__( 'Login With Existing Account', 'woocommerce' ); ?></a>
+	<a href="#" class="showlogin">
+		<span class="open-text"><?php echo esc_html__( 'Login With Existing Account', 'woocommerce' ); ?></span>
+		<span class="close-text"><?php echo esc_html__( 'Continue Without Login', 'woocommerce' ); ?></span>
+	</a>
 </div>
 <div class="wc-checkout-login-form">
 <?php

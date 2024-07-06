@@ -10,6 +10,8 @@ jQuery(document).ready(function($) {
         e.preventDefault();
 
         var isValid = true;
+        var delivery_button = $(this);
+        var error_message = $('.oak-delivery-fields-wrapper').find('.woocommerce-notices-wrapper');
 
         // Reset all previous error messages
         $('.error-message').text('').hide();
@@ -46,25 +48,24 @@ jQuery(document).ready(function($) {
                     delivery_time: delivery_time,
                     security: Oak_Food_Multi_Step_Checkout.nonce
                 },
+                beforeSend: function() {
+                    delivery_button.prop('disabled', true);
+                },
                 success: function(response) {
                     // Check if request was successful
                     if (response.success) {
-                        // alert('Success: ' + response.data.message);
+                        error_message.html(''); //Empty errors
                         $('.oak-delivery-fields-wrapper').hide();
                         $('.oak-facts-section-wrapper').show();
                         $('.delivery-step-btn, .fact-step-btn').toggleClass('active');
                     } else {
-                        console.log(response);
-                        // Display WooCommerce error notice
-                        // $('.woocommerce-error').remove(); // Remove existing notices
-                        // $('.woocommerce-message').remove();
-                        // $('form.cart').before('<div class="woocommerce-error">' + response.data.message + '</div>');
+                        error_message.html('<div class="woocommerce-error">' + response.data.message + '</div>');
+                        delivery_button.prop('disabled', false);
                     }
                 },
                 error: function(errorThrown) {
-                    // Handle error
-                    console.log('AJAX request failed');
-                    console.log(errorThrown);
+                    error_message.html('<div class="woocommerce-error">AJAX error. Please try again.</div>');
+                    delivery_button.prop('disabled', false);
                 }
             });
         }
@@ -75,6 +76,8 @@ jQuery(document).ready(function($) {
         e.preventDefault();
 
         var isValid = true;
+        var fact_button = $(this);
+        var error_message = $('.oak-facts-section-wrapper').find('.woocommerce-notices-wrapper');
 
         // Reset all previous error messages
         $('.error-message').text('').hide();
@@ -113,27 +116,27 @@ jQuery(document).ready(function($) {
                     different_billing_address: different_billing_address,
                     security: Oak_Food_Multi_Step_Checkout.nonce
                 },
+                beforeSend: function() {
+                    fact_button.prop('disabled', true);
+                },
                 success: function(response) {
                     // Check if request was successful
                     if (response.success && response.data.is_need_to_page_reload == true) {
-                        console.log(response.data.is_need_to_page_reload);
                         location.reload();
                     }else if(response.success){
+                        error_message.html(''); //Empty errors
                         $('.oak-facts-section-wrapper').hide();
                         $('.woocommerce-checkout').show();
                         $('.pm-step-btn, .fact-step-btn').toggleClass('active');
                     } else {
-                        console.log(response);
-                        // Display WooCommerce error notice
-                        // $('.woocommerce-error').remove(); // Remove existing notices
-                        // $('.woocommerce-message').remove();
-                        // $('form.cart').before('<div class="woocommerce-error">' + response.data.message + '</div>');
+                        error_message.html('<div class="woocommerce-error">' + response.data.message + '</div>');
+                        fact_button.prop('disabled', false);
                     }
                 },
                 error: function(errorThrown) {
                     // Handle error
-                    console.log('AJAX request failed');
-                    console.log(errorThrown);
+                    error_message.html('<div class="woocommerce-error">AJAX error. Please try again.</div>');
+                    fact_button.prop('disabled', false);
                 }
             });
         }
@@ -155,7 +158,19 @@ jQuery(document).ready(function($) {
         e.preventDefault();
         $('.oak-checkout-login-form .wc-checkout-login-form').toggle();
         $('.oak-facts-email-row').toggle();
+        $('.showlogin .close-text, .showlogin .open-text').toggle();
+
     });
+
+    //Select delivery time value[Start]
+    $('#delivery_time').on('change', function(e){
+        $('#fact_delivery_time').val($(e.target).val());
+    });
+
+    $('#fact_delivery_time').on('change', function(e){
+        $('#delivery_time').val($(e.target).val());
+    });
+    //Select delivery time value[End]
 
     // Toggle show hide checkout page login form
     $('#facts-step-prev-btn').on('click', function(e) {
@@ -171,5 +186,40 @@ jQuery(document).ready(function($) {
         $('form.woocommerce-checkout').removeClass('oak-d-block');
         $('form.woocommerce-checkout').hide();
         $('.pm-step-btn, .fact-step-btn').toggleClass('active');
+    });
+
+    // Handle checkout login form AJAX validation
+    $('.wc-checkout-login-form form.login').on('submit', function(e) {
+        e.preventDefault();
+
+        var $form = $(this);
+        var $message = $('.oak-facts-section-wrapper').find('.woocommerce-notices-wrapper');
+        var data = {
+            'action': 'custom_checkout_login',
+            'nonce': Oak_Food_Multi_Step_Checkout.nonce,
+            'username': $form.find('input[name="username"]').val(),
+            'password': $form.find('input[name="password"]').val()
+        };
+
+        $.ajax({
+            url: Oak_Food_Multi_Step_Checkout.ajax_url,
+            type: 'POST',
+            data: data,
+            beforeSend: function() {
+                $form.find('button[type="submit"]').prop('disabled', true);
+            },
+            success: function(response) {
+                if (response.success) {
+                    window.location.reload();
+                } else {
+                    $message.html('<div class="woocommerce-error">' + response.data.message + '</div>');
+                    $form.find('button[type="submit"]').prop('disabled', false);
+                }
+            },
+            error: function() {
+                $message.html('<div class="woocommerce-error">AJAX error. Please try again.</div>');
+                $form.find('button[type="submit"]').prop('disabled', false);
+            }
+        });
     });
 });

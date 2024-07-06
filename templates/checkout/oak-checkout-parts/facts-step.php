@@ -8,6 +8,7 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 <div class="oak-facts-section-wrapper">
 	<div class="oak-facts-fields">
 		<h3 class="common-subtitle"><?php echo esc_html__( 'Facts', 'oak-food-multi-step-checkout' ); ?></h3>
+		<div class="woocommerce-notices-wrapper"></div>
 		<div class="common-box">
 			<div class="form-row form-row-wide oak-facts-email-row">
 				<label for="fact_email" class="common-labell">
@@ -25,14 +26,14 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 				<div class="form-row form-row-first">
 					<label for="first_name" class="common-labell"><?php echo esc_html__( 'First Name', 'oak-food-multi-step-checkout' ); ?></label>
 					<span class="woocommerce-input-wrapper">
-						<input type="text" class="input-text oak-required-field common-inputt" name="first_name" id="first_name" placeholder="name here" value="<?php echo esc_attr( Helpers::get_wc_session_value_by_key( 'first_name' ) ); ?>">
+						<input type="text" class="input-text oak-required-field common-inputt" name="first_name" id="first_name" placeholder="First name here" value="<?php echo esc_attr( Helpers::get_wc_session_value_by_key( 'first_name' ) ); ?>">
 					</span>
 					<span class="error-message"></span>
 				</div>
 				<div class="form-row form-row-last">
 					<label for="last_name" class="common-labell"><?php echo esc_html__( 'Last Name', 'oak-food-multi-step-checkout' ); ?></label>
 					<span class="woocommerce-input-wrapper">
-						<input type="text" class="input-text oak-required-field common-inputt" name="last_name" id="last_name" placeholder="name here" value="<?php echo esc_attr( Helpers::get_wc_session_value_by_key( 'last_name' ) ); ?>">
+						<input type="text" class="input-text oak-required-field common-inputt" name="last_name" id="last_name" placeholder="Last name here" value="<?php echo esc_attr( Helpers::get_wc_session_value_by_key( 'last_name' ) ); ?>">
 					</span>
 					<span class="error-message"></span>
 				</div>
@@ -49,8 +50,9 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 					<label for="fact_delivery_time" class="common-labell"><?php echo esc_html__( 'Delivery Time', 'oak-food-multi-step-checkout' ); ?></label>
 					<span class="woocommerce-input-wrapper">
 						<select name="delivery_time" id="fact_delivery_time" class="common-inputt">
-							<option value="Between 08:00 and 22:00">Between 08:00 and 22:00</option>
-							<option value="Between 09:00 and 12:00">Between 09:00 and 12:00</option>
+							<?php foreach ( Helpers::get_delivery_times() as $key => $value ) { ?>
+							<option value="<?php echo esc_attr( $key ); ?>" <?php echo Helpers::get_wc_session_value_by_key( 'delivery_time' ) === $key ? 'selected' : ''; ?>><?php echo esc_html( $value ); ?></option>
+							<?php } ?>
 						</select>
 					</span>
 				</div>
@@ -100,9 +102,8 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 				<p class="form-row">
 					<label for="custom_password" class="common-labell"><?php echo esc_html__( 'Choose a Password', 'oak-food-multi-step-checkout' ); ?></label>
 					<span class="woocommerce-input-wrapper password-input">
-						<input type="password" class="input-text common-inputt oak-required-field" name="custom_password" id="custom_password" placeholder="<?php echo esc_attr__( 'Enter Password', 'oak-food-multi-step-checkout' ); ?>">
+						<input type="password" class="input-text common-inputt" name="custom_password" id="custom_password" placeholder="<?php echo esc_attr__( 'Enter Password', 'oak-food-multi-step-checkout' ); ?>">
 					</span>
-					<span class="error-message"></span>
 				</p>
 				<p class="common-para" style="text-align: left!important;"><?php echo esc_html__( 'This form is protected by reCaptcha, the Google Privacy <br> Policy and Terms of Service apply.', 'oak-food-multi-step-checkout' ); ?></p>
 			</div>

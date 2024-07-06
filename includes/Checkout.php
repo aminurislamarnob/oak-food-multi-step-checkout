@@ -193,10 +193,6 @@ class Checkout {
 			wp_send_json_error( array( 'message' => __( 'Please enter your phone number.', 'woocommerce' ) ) );
 		}
 
-		if ( ! is_user_logged_in() && empty( $custom_password ) ) {
-			wp_send_json_error( array( 'message' => __( 'Please enter an account password.', 'woocommerce' ) ) );
-		}
-
 		// Manage WooCommerce session.
 		if ( ! WC()->session->has_session() ) {
 			WC()->session->set_customer_session_cookie( true );
@@ -211,7 +207,7 @@ class Checkout {
 			'createaccount'      => 'yes',
 		);
 
-		if ( ! is_user_logged_in() ) {
+		if ( ! is_user_logged_in() && ! empty( $custom_password ) ) {
 			$create_customer = new CreateCustomer();
 			$create_customer->create_customer_on_checkout( $posted_data );
 		}

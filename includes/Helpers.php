@@ -61,4 +61,19 @@ class Helpers {
 		}
 		return false;
 	}
+
+	/**
+	 * Get array of delivery times
+	 *
+	 * @return array
+	 */
+	public static function get_delivery_times() {
+		return array(
+			'00:00 - 05:00' => '00:00 - 05:00',
+			'05:00 - 10:00' => '05:00 - 10:00',
+			'10:00 - 15:00' => '10:00 - 15:00',
+			'15:00 - 20:00' => '15:00 - 20:00',
+			'20:00 - 01:00' => '20:00 - 01:00',
+		);
+	}
 }
