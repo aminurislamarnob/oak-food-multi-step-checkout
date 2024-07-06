@@ -7,7 +7,7 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 ?>
 <div class="oak-facts-section-wrapper">
 	<div class="oak-facts-fields">
-		<h3 class="common-subtitle">Facts</h3>
+		<h3 class="common-subtitle"><?php echo esc_html__( 'Facts', 'oak-food-multi-step-checkout' ); ?></h3>
 		<div class="common-box">
 			<div class="form-row form-row-wide oak-facts-email-row">
 				<label for="fact_email" class="common-labell">
@@ -23,14 +23,14 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 			</div>
 			<div class="woocommerce-billing-fields__field-wrapper name-filed">
 				<div class="form-row form-row-first">
-					<label for="first_name" class="common-labell">First Name</label>
+					<label for="first_name" class="common-labell"><?php echo esc_html__( 'First Name', 'oak-food-multi-step-checkout' ); ?></label>
 					<span class="woocommerce-input-wrapper">
 						<input type="text" class="input-text oak-required-field common-inputt" name="first_name" id="first_name" placeholder="name here" value="<?php echo esc_attr( Helpers::get_wc_session_value_by_key( 'first_name' ) ); ?>">
 					</span>
 					<span class="error-message"></span>
 				</div>
 				<div class="form-row form-row-last">
-					<label for="last_name" class="common-labell">Last Name</label>
+					<label for="last_name" class="common-labell"><?php echo esc_html__( 'Last Name', 'oak-food-multi-step-checkout' ); ?></label>
 					<span class="woocommerce-input-wrapper">
 						<input type="text" class="input-text oak-required-field common-inputt" name="last_name" id="last_name" placeholder="name here" value="<?php echo esc_attr( Helpers::get_wc_session_value_by_key( 'last_name' ) ); ?>">
 					</span>
@@ -39,7 +39,7 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 			</div>
 			<div class="woocommerce-billing-fields__field-wrapper name-filed">
 				<div class="form-row form-row-first">
-					<label for="phone" class="common-labell">Phone Number</label>
+					<label for="phone" class="common-labell"><?php echo esc_html__( 'Phone Number', 'oak-food-multi-step-checkout' ); ?></label>
 					<span class="woocommerce-input-wrapper">
 						<input type="text" class="input-text oak-required-field common-inputt" name="phone" id="phone" placeholder="" value="<?php echo esc_attr( Helpers::get_wc_session_value_by_key( 'phone' ) ); ?>">
 					</span>
@@ -72,29 +72,39 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 			<?php if ( ! is_user_logged_in() ) { ?>
 			<div class="white-box">
 				<div class="create-account-hints">
-					<p class="">Create an account immediately by providing a password and take advantage of the benefits:</p>
+					<p><?php echo esc_html__( 'Create an account immediately by providing a password and take advantage of the benefits:', 'oak-food-multi-step-checkout' ); ?></p>
 					<ul>
 						<li>
-							<img src="<?php echo plugins_url( 'assets/check.svg', __DIR__ ); ?>" alt="C">
-							Save for gifts and discounts
+							<img src="<?php echo esc_attr( pluginizelab_oak_food_multi_step_checkout()->get_asset( 'frontend/images/check.svg' ) ); ?>" alt="C">
+							<?php echo esc_html__( 'Save for gifts and discounts', 'oak-food-multi-step-checkout' ); ?>
 						</li>
-						<li><img src="<?php echo plugins_url( 'assets/check.svg', __DIR__ ); ?>" alt="C">
-						Order faster</li>
-						<li><img src="<?php echo plugins_url( 'assets/check.svg', __DIR__ ); ?>" alt="C">
-						View order history</li>
-						<li><img src="<?php echo plugins_url( 'assets/check.svg', __DIR__ ); ?>" alt="C">Follow Favorites</li>
-						<li><img src="<?php echo plugins_url( 'assets/check.svg', __DIR__ ); ?>" alt="C">Post Reviews</li>
+						<li>
+							<img src="<?php echo esc_attr( pluginizelab_oak_food_multi_step_checkout()->get_asset( 'frontend/images/check.svg' ) ); ?>" alt="<?php echo esc_attr__( 'Order faster', 'oak-food-multi-step-checkout' ); ?>">
+							<?php echo esc_html__( 'Order faster', 'oak-food-multi-step-checkout' ); ?>
+						</li>
+						<li>
+							<img src="<?php echo esc_attr( pluginizelab_oak_food_multi_step_checkout()->get_asset( 'frontend/images/check.svg' ) ); ?>" alt="<?php echo esc_attr__( 'View order history', 'oak-food-multi-step-checkout' ); ?>">
+							<?php echo esc_html__( 'View order history', 'oak-food-multi-step-checkout' ); ?>
+						</li>
+						<li>
+							<img src="<?php echo esc_attr( pluginizelab_oak_food_multi_step_checkout()->get_asset( 'frontend/images/check.svg' ) ); ?>" alt="<?php echo esc_attr__( 'Follow Favorites', 'oak-food-multi-step-checkout' ); ?>">
+							<?php echo esc_html__( 'Follow Favorites', 'oak-food-multi-step-checkout' ); ?>
+						</li>
+						<li>
+							<img src="<?php echo esc_attr( pluginizelab_oak_food_multi_step_checkout()->get_asset( 'frontend/images/assets/check.svg' ) ); ?>" alt="<?php echo esc_attr__( 'Post Reviews', 'oak-food-multi-step-checkout' ); ?>">
+							<?php echo esc_html__( 'Post Reviews', 'oak-food-multi-step-checkout' ); ?>
+						</li>
 					</ul>
 				</div>
 
 				<p class="form-row">
-					<label for="custom_password" class="common-labell">Choose a Password</label>
+					<label for="custom_password" class="common-labell"><?php echo esc_html__( 'Choose a Password', 'oak-food-multi-step-checkout' ); ?></label>
 					<span class="woocommerce-input-wrapper password-input">
-						<input type="password" class="input-text common-inputt oak-required-field" name="custom_password" id="custom_password" placeholder="Password">
+						<input type="password" class="input-text common-inputt oak-required-field" name="custom_password" id="custom_password" placeholder="<?php echo esc_attr__( 'Enter Password', 'oak-food-multi-step-checkout' ); ?>">
 					</span>
 					<span class="error-message"></span>
 				</p>
-				<p class="common-para" style="text-align: left!important;">This form is protected by reCaptcha, the Google Privacy <br> Policy and Terms of Service apply.</p>
+				<p class="common-para" style="text-align: left!important;"><?php echo esc_html__( 'This form is protected by reCaptcha, the Google Privacy <br> Policy and Terms of Service apply.', 'oak-food-multi-step-checkout' ); ?></p>
 			</div>
 			<?php } ?>
 		</div>

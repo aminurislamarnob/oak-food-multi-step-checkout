@@ -320,4 +320,16 @@ final class OakFoodMultiStepCheckout {
 
 		return apply_filters( 'oak-food-multi-step-checkout_template', $template, $name );
 	}
+
+	/**
+	 * Get the assets file like image
+	 *
+	 * @param string $name
+	 * @return string
+	 */
+	public function get_asset( $name ) {
+		$template = untrailingslashit( OAK_FOOD_MULTI_STEP_CHECKOUT_PLUGIN_ASSET ) . '/' . untrailingslashit( $name );
+
+		return apply_filters( 'oak-food-multi-step-checkout_asset', $template, $name );
+	}
 }

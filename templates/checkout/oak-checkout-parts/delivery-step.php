@@ -7,7 +7,7 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 ?>
 <div class="oak-delivery-fields-wrapper <?php echo Helpers::is_pm_visible() ? 'oak-d-none' : ''; ?>">
 	<div class="oak-delivery-fields">
-		<h3 class="common-subtitle">Delivery</h3>
+		<h3 class="common-subtitle"><?php echo esc_html__( 'Delivery', 'oak-food-multi-step-checkout' ); ?></h3>
 		<div class="common-box">
 			<div class="form-row form-row-wide">
 				<input type="radio" name="delivery_type" id="delivery_type" checked>
