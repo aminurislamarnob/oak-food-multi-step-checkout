@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Oak Food Multi Step Checkout
- * Plugin URI:  https://pluginizelab.com/
+ * Plugin URI:  https://giopio.com/
  * Description: Multi Step Checkout Plugin For Oak Food Website
  * Version: 0.0.1
- * Author: PluginizeLab
- * Author URI: https://pluginizelab.com/
+ * Author: Jakarea Parvez
+ * Author URI: https://giopio.com/
  * Text Domain: oak-food-multi-step-checkout
  * WC requires at least: 5.0.0
  * Domain Path: /languages/
