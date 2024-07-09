@@ -7,7 +7,7 @@
 .woocommerce-additional-fields,
 div#customer_details,
 form.woocommerce-checkout,
-.oak-facts-section-wrapper, .oak-delivery-fields-wrapper.oak-d-none, body.woocommerce-checkout.woocommerce-page .entry-header, .close-text {
+.oak-facts-section-wrapper, .oak-delivery-fields-wrapper.oak-d-none, body.woocommerce-checkout.woocommerce-page .entry-header, .close-text, .common-header-wrap svg {
     display: none;
 }
 
@@ -409,6 +409,20 @@ form.woocommerce-checkout.oak-d-block{
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+}
+.common-header-wrap .passed-step svg {
+    display: inline-block;
+    position: relative;
+    top: 10px;
+    margin-left: 10px;
+}
+
+.common-header-wrap .passed-step h5 {
+    color: #36B37E;
+}
+
+.common-header-wrap .passed-step hr {
+    background-color: #36B37E!important;
 }
 
 @media only screen and (max-width: 900px) {

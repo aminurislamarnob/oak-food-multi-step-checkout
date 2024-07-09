@@ -70,6 +70,7 @@ jQuery(document).ready(function($) {
                        $('.oak-delivery-fields-wrapper').hide();
                        $('.oak-facts-section-wrapper').show();
                        $('.delivery-step-btn, .fact-step-btn').toggleClass('active');
+                       $('.delivery-step-btn').addClass('passed-step');
                    } else {
                        error_message.html('<div class="woocommerce-error">' + response.data.message + '</div>');
                        delivery_button.prop('disabled', false);
@@ -129,6 +130,7 @@ jQuery(document).ready(function($) {
                        $('.oak-facts-section-wrapper').hide();
                        $('.woocommerce-checkout').show();
                        $('.pm-step-btn, .fact-step-btn').toggleClass('active');
+                       $('.fact-step-btn').addClass('passed-step');
                    } else {
                        error_message.html('<div class="woocommerce-error">' + response.data.message + '</div>');
                        fact_button.prop('disabled', false);
@@ -179,16 +181,17 @@ jQuery(document).ready(function($) {
        $('.oak-facts-section-wrapper').toggle();
        $('.oak-delivery-fields-wrapper ').toggle();
        $('.fact-step-btn, .delivery-step-btn').toggleClass('active');
+       $('.delivery-step-btn').removeClass('passed-step');
    });
 
    //Goto payment method previous page
    $('#pm-step-prev-btn').on('click', function(e) {
        e.preventDefault();
-       console.log('test');
        $('.oak-facts-section-wrapper').show();
        $('form.woocommerce-checkout').removeClass('oak-d-block');
        $('form.woocommerce-checkout').hide();
        $('.pm-step-btn, .fact-step-btn').toggleClass('active');
+       $('.fact-step-btn').removeClass('passed-step');
    });
 
    // Handle checkout login form AJAX validation
