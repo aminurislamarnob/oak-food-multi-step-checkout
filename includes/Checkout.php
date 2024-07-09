@@ -28,7 +28,43 @@ class Checkout {
 
 		// Change place order button text.
 		add_filter( 'woocommerce_order_button_text', array( $this, 'change_woocommerce_order_button_text' ), 100 );
+		
+		// Make shipping fields optional.
+		add_filter( 'woocommerce_checkout_fields', array( $this, 'make_checkout_shipping_fields_optional' ) );
 	}
+	
+	/**
+     * Customize WooCommerce checkout fields to exclude certain shipping fields from validation.
+     *
+     * This function uses the 'woocommerce_checkout_fields' filter to modify the required status
+     * of specified shipping fields, making them optional during the checkout process.
+     *
+     * @param array $fields The existing checkout fields.
+     * @return array Modified checkout fields with specified shipping fields set to optional.
+     */
+	function make_checkout_shipping_fields_optional($fields) {
+        // List of shipping fields to exclude from validation
+        $excluded_shipping_fields = array(
+            'shipping_first_name',
+            'shipping_last_name',
+            'shipping_company',
+            'shipping_country',
+            'shipping_address_1',
+            'shipping_address_2',
+            'shipping_city',
+            'shipping_state',
+            'shipping_postcode'
+        );
+    
+        // Loop through the shipping fields and set 'required' to false
+        foreach ($excluded_shipping_fields as $field) {
+            if (isset($fields['shipping'][$field])) {
+                $fields['shipping'][$field]['required'] = false;
+            }
+        }
+    
+        return $fields;
+    }
 
 	/**
 	 * Override checkout templates
@@ -80,7 +116,7 @@ class Checkout {
 			'billing_city',
 			'billing_state', // Or 'billing_province', depending on your setup.
 			'billing_phone',
-			'billing_email',
+			'billing_email'
 		);
 
 		// Loop through each field and unset it.
