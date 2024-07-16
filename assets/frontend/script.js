@@ -3,7 +3,11 @@ jQuery(document).ready(function($) {
     // Initialize datepicker
     $('#delivery_date').datepicker({
        dateFormat: 'yy-mm-dd' // Adjust date format as needed
-   });
+    });
+
+    $('#shipping_delivery_date').datepicker({
+        dateFormat: 'yy-mm-dd' // Adjust date format as needed
+     });
 
    // Function to validate input fields and show error messages
    function validateFields($fieldsWrapper, $errorContainer) {
@@ -43,6 +47,7 @@ jQuery(document).ready(function($) {
            var delivery_type = $('#delivery_type:checked').val();
            var postcode = $('.postcode').val();
            var billing_house_no = $('#billing_house_no').val();
+           var street_address = $('.street_address').val();
            var billing_address = $('.billing_address').val();
            var delivery_date = $('#delivery_date').val();
            var delivery_time = $('#delivery_time').val();
@@ -55,6 +60,7 @@ jQuery(document).ready(function($) {
                    delivery_type: delivery_type,
                    postcode: postcode,
                    billing_house_no: billing_house_no,
+                   street_address: street_address,
                    billing_address: billing_address,
                    delivery_date: delivery_date,
                    delivery_time: delivery_time,
@@ -71,6 +77,7 @@ jQuery(document).ready(function($) {
                        $('.oak-facts-section-wrapper').show();
                        $('.delivery-step-btn, .fact-step-btn').toggleClass('active');
                        $('.delivery-step-btn').addClass('passed-step');
+                       delivery_button.prop('disabled', false);
                    } else {
                        error_message.html('<div class="woocommerce-error">' + response.data.message + '</div>');
                        delivery_button.prop('disabled', false);
@@ -95,7 +102,7 @@ jQuery(document).ready(function($) {
        $('.error-message').text('').hide();
 
        // AJAX call
-       if (validateFields($('.oak-facts-fields'))) {
+       if (validateFields($('.oak-facts-default-billing-fields'))) {
            var fact_email = $('#fact_email').val();
            var first_name = $('#first_name').val();
            var last_name = $('#last_name').val();
@@ -103,6 +110,24 @@ jQuery(document).ready(function($) {
            var fact_delivery_time = $('#fact_delivery_time').val();
            var custom_password = $('#custom_password').val();
            var different_billing_address = $('#different_billing_address:checked').val();
+           
+           if(different_billing_address && 'on' == different_billing_address){
+                if (!validateFields($('.different-shipping-address'))) {
+                    return;
+                }
+           }
+
+           //different billing/shipping address
+           var shipping_postcode = $('#shipping_postcode').val();
+           var shipping_house_no = $('#shipping_house_no').val();
+           var shipping_street_address = $('#shipping_street_address').val();
+           var shipping_address_1 = $('#shipping_address_1').val();
+           var shipping_first_name = $('#shipping_first_name').val();
+           var shipping_last_name = $('#shipping_last_name').val();
+           var shipping_phone = $('#shipping_phone').val();
+           var shipping_delivery_date = $('#shipping_delivery_date').val();
+           var shipping_delivery_time = $('#shipping_delivery_time').val();
+
 
            $.ajax({
                type: 'POST',
@@ -116,6 +141,15 @@ jQuery(document).ready(function($) {
                    fact_delivery_time: fact_delivery_time,
                    custom_password: custom_password,
                    different_billing_address: different_billing_address,
+                   shipping_postcode: shipping_postcode,
+                   shipping_house_no: shipping_house_no,
+                   shipping_street_address: shipping_street_address,
+                   shipping_address_1: shipping_address_1,
+                   shipping_first_name: shipping_first_name,
+                   shipping_last_name: shipping_last_name,
+                   shipping_phone: shipping_phone,
+                   shipping_delivery_date: shipping_delivery_date,
+                   shipping_delivery_time: shipping_delivery_time,
                    security: Oak_Food_Multi_Step_Checkout.nonce
                },
                beforeSend: function() {
@@ -131,6 +165,7 @@ jQuery(document).ready(function($) {
                        $('.woocommerce-checkout').show();
                        $('.pm-step-btn, .fact-step-btn').toggleClass('active');
                        $('.fact-step-btn').addClass('passed-step');
+                       fact_button.prop('disabled', false);
                    } else {
                        error_message.html('<div class="woocommerce-error">' + response.data.message + '</div>');
                        fact_button.prop('disabled', false);
@@ -227,5 +262,97 @@ jQuery(document).ready(function($) {
                $form.find('button[type="submit"]').prop('disabled', false);
            }
        });
-   });
+    });
+
+
+
+    // Function to update the delivery address information
+    function updateDeliveryAddress() {
+        var postCode = $(".postcode").val();
+        var houseNo = $(".house_no").val();
+        var streetAddress = $(".street_address").val();
+        var billingAddress = $(".billing_address").val();
+
+        // Create an array to store non-empty values
+        var addressParts = [];
+
+        // Push non-empty values into the array
+        if (houseNo.trim() !== '') {
+            addressParts.push(houseNo);
+        }
+        if (streetAddress.trim() !== '') {
+            addressParts.push(streetAddress);
+        }
+        if (billingAddress.trim() !== '') {
+            addressParts.push(billingAddress);
+        }
+        if (postCode.trim() !== '') {
+            addressParts.push(postCode);
+        }
+
+        // Update the delivery address information
+        $(".delivery-address-inf").text(addressParts.join(", "));
+    }
+
+    // Function to update the additional delivery information
+    function updateAdditionalDeliveryInfo() {
+        var postCode = $(".postcode").val();
+        var houseNo = $(".house_no").val();
+        var streetAddress = $(".street_address").val();
+        var billingAddress = $(".billing_address").val();
+        var firstName = $(".first_name").val();
+        var lastName = $(".last_name").val();
+        var phone = $(".phone").val();
+
+        // Create an array to store non-empty values
+        var infoParts = [];
+
+        // Push non-empty values into the array
+        if (houseNo.trim() !== '') {
+            infoParts.push(houseNo);
+        }
+        if (streetAddress.trim() !== '') {
+            infoParts.push(streetAddress);
+        }
+        if (billingAddress.trim() !== '') {
+            infoParts.push(billingAddress);
+        }
+        if (postCode.trim() !== '') {
+            infoParts.push(postCode);
+        }
+        if (firstName.trim() !== '') {
+            infoParts.push(firstName);
+        }
+        if (lastName.trim() !== '') {
+            infoParts.push(lastName);
+        }
+        if (phone.trim() !== '') {
+            infoParts.push(phone);
+        }
+
+        $(".delivery-address-inf1").text(infoParts.join(", "));
+    }
+
+    updateDeliveryAddress();
+    updateAdditionalDeliveryInfo();
+
+    $(".postcode, .house_no, .street_address, .billing_address").on("input", function () {
+        updateDeliveryAddress();
+    });
+
+    $(".first_name, .last_name, .phone, .fact_delivery_time").on("input", function () {
+        updateAdditionalDeliveryInfo();
+    });
+
+    $("#different_billing_address").on("change", function () {
+        if ($(this).is(":checked")) {
+            $(".different-shipping-address").show();
+        } else {
+            $(".different-shipping-address").hide();
+        }
+    });
+
+    if ($("#different_billing_address").is(":checked")) {
+        $(".different-shipping-address").show();
+    }
 });

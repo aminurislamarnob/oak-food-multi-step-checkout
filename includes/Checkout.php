@@ -140,7 +140,6 @@ class Checkout {
 	 * @return void
 	 */
 	public function handle_checkout_delivery_step() {
-		// Verify nonce for security.
 		if ( ! isset( $_POST['security'] ) || ! wp_verify_nonce( $_POST['security'], 'oak-ajax-nonce' ) ) {
 			wp_send_json_error( 'Nonce verification failed' );
 		}
@@ -148,6 +147,7 @@ class Checkout {
 		$delivery_type    = sanitize_text_field( $_POST['delivery_type'] );
 		$postcode         = sanitize_text_field( $_POST['postcode'] );
 		$billing_house_no = sanitize_text_field( $_POST['billing_house_no'] );
+		$street_address  = sanitize_text_field( $_POST['street_address'] );
 		$billing_address  = sanitize_text_field( $_POST['billing_address'] );
 		$delivery_date    = sanitize_text_field( $_POST['delivery_date'] );
 		$delivery_time    = sanitize_text_field( $_POST['delivery_time'] );
@@ -168,6 +168,10 @@ class Checkout {
 			wp_send_json_error( array( 'message' => __( 'Please enter your address.', 'woocommerce' ) ) );
 		}
 
+		if ( empty( $street_address ) ) {
+			wp_send_json_error( array( 'message' => __( 'Please enter your street address.', 'woocommerce' ) ) );
+		}
+
 		if ( empty( $delivery_date ) ) {
 			wp_send_json_error( array( 'message' => __( 'Please enter delivery address.', 'woocommerce' ) ) );
 		}
@@ -180,6 +184,7 @@ class Checkout {
 		WC()->session->set( 'delivery_type', $delivery_type );
 		WC()->session->set( 'postcode', $postcode );
 		WC()->session->set( 'billing_house_no', $billing_house_no );
+		WC()->session->set( 'street_address', $street_address );
 		WC()->session->set( 'billing_address', $billing_address );
 		WC()->session->set( 'delivery_date', $delivery_date );
 		WC()->session->set( 'delivery_time', $delivery_time );
@@ -229,6 +234,51 @@ class Checkout {
 			wp_send_json_error( array( 'message' => __( 'Please enter your phone number.', 'woocommerce' ) ) );
 		}
 
+		if( isset($different_billing_address) && 'on' == $different_billing_address){
+			//shipping address
+			$shipping_postcode           = sanitize_text_field( $_POST['shipping_postcode'] );
+			$shipping_house_no           = sanitize_text_field( $_POST['shipping_house_no'] );
+			$shipping_street_address           = sanitize_text_field( $_POST['shipping_street_address'] );
+			$shipping_address_1           = sanitize_text_field( $_POST['shipping_address_1'] );
+			$shipping_first_name           = sanitize_text_field( $_POST['shipping_first_name'] );
+			$shipping_last_name           = sanitize_text_field( $_POST['shipping_last_name'] );
+			$shipping_phone           = sanitize_text_field( $_POST['shipping_phone'] );
+			$shipping_delivery_date           = sanitize_text_field( $_POST['shipping_delivery_date'] );
+			$shipping_delivery_time           = sanitize_text_field( $_POST['shipping_delivery_time'] );
+
+			if ( empty( $shipping_first_name ) ) {
+				wp_send_json_error( array( 'message' => __( 'Please enter your shipping first name.', 'woocommerce' ) ) );
+			}
+
+			if ( empty( $shipping_last_name ) ) {
+				wp_send_json_error( array( 'message' => __( 'Please enter your shipping last name.', 'woocommerce' ) ) );
+			}
+
+			if ( empty( $shipping_postcode ) ) {
+				wp_send_json_error( array( 'message' => __( 'Please enter your shipping postcode.', 'woocommerce' ) ) );
+			}
+	
+			if ( empty( $shipping_house_no ) ) {
+				wp_send_json_error( array( 'message' => __( 'Please enter your shipping House no.', 'woocommerce' ) ) );
+			}
+	
+			if ( empty( $shipping_street_address ) ) {
+				wp_send_json_error( array( 'message' => __( 'Please enter your shipping address.', 'woocommerce' ) ) );
+			}
+
+			if ( empty( $shipping_phone ) ) {
+				wp_send_json_error( array( 'message' => __( 'Please enter your shipping phone number.', 'woocommerce' ) ) );
+			}
+
+			if ( empty( $shipping_delivery_date ) ) {
+				wp_send_json_error( array( 'message' => __( 'Please select shipping delivery date.', 'woocommerce' ) ) );
+			}
+
+			if ( empty( $shipping_delivery_time ) ) {
+				wp_send_json_error( array( 'message' => __( 'Please select shipping delivery time.', 'woocommerce' ) ) );
+			}
+		}
+
 		// Manage WooCommerce session.
 		if ( ! WC()->session->has_session() ) {
 			WC()->session->set_customer_session_cookie( true );
@@ -257,6 +307,18 @@ class Checkout {
 		WC()->session->set( 'different_billing_address', $different_billing_address );
 		WC()->session->set( 'is_validate_oak_fact_step', 'yes' );
 
+		if( isset($different_billing_address) && 'on' == $different_billing_address){
+			WC()->session->set( 'shipping_postcode', $shipping_postcode );
+			WC()->session->set( 'shipping_house_no', $shipping_house_no );
+			WC()->session->set( 'shipping_street_address', $shipping_street_address );
+			WC()->session->set( 'shipping_address_1', $shipping_address_1 );
+			WC()->session->set( 'shipping_first_name', $shipping_first_name );
+			WC()->session->set( 'shipping_last_name', $shipping_last_name );
+			WC()->session->set( 'shipping_phone', $shipping_phone );
+			WC()->session->set( 'shipping_delivery_date', $shipping_delivery_date );
+			WC()->session->set( 'shipping_delivery_time', $shipping_delivery_time );
+		}
+
 		// Return success response.
 		$response_data = array(
 			'success'                => true,
@@ -278,6 +340,7 @@ class Checkout {
 		// Retrieve custom data from session.
 		$billing_email             = WC()->session->get( 'billing_email' );
 		$postcode                  = WC()->session->get( 'postcode' );
+		$street_address           = WC()->session->get( 'street_address' );
 		$billing_address           = WC()->session->get( 'billing_address' );
 		$first_name                = WC()->session->get( 'first_name' );
 		$last_name                 = WC()->session->get( 'last_name' );
@@ -297,8 +360,12 @@ class Checkout {
 			$order->set_billing_postcode( $postcode );
 		}
 
+		if ( ! empty( $street_address ) ) {
+			$order->set_billing_address_1( $street_address );
+		}
+
 		if ( ! empty( $billing_address ) ) {
-			$order->set_billing_address_1( $billing_address );
+			$order->set_billing_address_2( $billing_address );
 		}
 
 		if ( ! empty( $first_name ) ) {
@@ -331,6 +398,53 @@ class Checkout {
 
 		if ( ! empty( $different_billing_address ) ) {
 			$order->update_meta_data( 'different_billing_address', sanitize_text_field( $different_billing_address ) );
+
+			//Set shipping address
+			$shipping_postcode = WC()->session->get( 'shipping_postcode' );
+			$shipping_house_no = WC()->session->get( 'shipping_house_no' );
+			$shipping_street_address = WC()->session->get( 'shipping_street_address' );
+			$shipping_address_1 = WC()->session->get( 'shipping_address_1' );
+			$shipping_first_name = WC()->session->get( 'shipping_first_name' );
+			$shipping_last_name = WC()->session->get( 'shipping_last_name' );
+			$shipping_phone = WC()->session->get( 'shipping_phone' );
+			$shipping_delivery_date = WC()->session->get( 'shipping_delivery_date' );
+			$shipping_delivery_time = WC()->session->get( 'shipping_delivery_time' );
+	
+			if ( ! empty( $shipping_postcode ) ) {
+				$order->set_shipping_postcode( $shipping_postcode );
+			}
+	
+			if ( ! empty( $shipping_street_address ) ) {
+				$order->set_shipping_address_1( $shipping_street_address );
+			}
+	
+			if ( ! empty( $shipping_address_1 ) ) {
+				$order->set_shipping_address_2( $shipping_address_1 );
+			}
+	
+			if ( ! empty( $shipping_first_name ) ) {
+				$order->set_shipping_first_name( $shipping_first_name );
+			}
+	
+			if ( ! empty( $shipping_last_name ) ) {
+				$order->set_shipping_last_name( $shipping_last_name );
+			}
+	
+			if ( ! empty( $shipping_phone ) ) {
+				$order->set_shipping_phone( $shipping_phone );
+			}
+	
+			if ( ! empty( $shipping_delivery_date ) ) {
+				$order->update_meta_data( 'shipping_delivery_date', sanitize_text_field( $shipping_delivery_date ) );
+			}
+	
+			if ( ! empty( $shipping_house_no ) ) {
+				$order->update_meta_data( 'shipping_house_no', sanitize_text_field( $shipping_house_no ) );
+			}
+	
+			if ( ! empty( $shipping_delivery_time ) ) {
+				$order->update_meta_data( 'shipping_delivery_time', sanitize_text_field( $shipping_delivery_time ) );
+			}
 		}
 	}
 

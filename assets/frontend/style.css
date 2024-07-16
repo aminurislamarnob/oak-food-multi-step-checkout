@@ -1,463 +1,953 @@
 .delivery-time-fields {
+
     overflow: hidden;
+
 }
 
-.error-message,
-.wc-checkout-login-form,
-.woocommerce-additional-fields,
-div#customer_details,
-form.woocommerce-checkout,
-.oak-facts-section-wrapper, .oak-delivery-fields-wrapper.oak-d-none, body.woocommerce-checkout.woocommerce-page .entry-header, .close-text, .common-header-wrap svg {
+div.adres-details-group .billing-address-wrap  input{
+    width: 100% !important;
+}
+
+.billing-address-wrap{
+    grid-column: span 3;
+}
+
+.different-shipping-address{
     display: none;
 }
 
-form.woocommerce-checkout.oak-d-block{
-    display: block;
+.error-message,
+
+.wc-checkout-login-form,
+
+.woocommerce-additional-fields,
+
+div#customer_details,
+
+form.woocommerce-checkout,
+
+.oak-facts-section-wrapper,
+.oak-delivery-fields-wrapper.oak-d-none,
+body.woocommerce-checkout.woocommerce-page .entry-header,
+.close-text,
+.common-header-wrap svg {
+
+    display: none;
+
 }
+
+
+
+form.woocommerce-checkout.oak-d-block {
+
+    display: block;
+
+}
+
+
 
 .oak-checkout-login-form {
+
     margin-bottom: 25px;
+
 }
+
+
 
 .enter-email-area h1 {
+
     color: var(--Neutral-700, #323B49);
+
     font-size: 1.5rem;
+
     font-style: normal;
+
     font-weight: 700;
+
     line-height: 2rem;
+
     text-align: center;
+
     margin-bottom: 1.5rem;
+
 }
+
+
 
 .common-para {
+
     color: var(--Neutral-600, #687588);
+
     text-align: center;
+
     leading-trim: both;
+
     text-edge: cap;
+
     font-size: 1rem;
+
     font-style: normal;
+
     font-weight: 400;
+
     line-height: normal;
+
 }
+
+
 
 .common-label {
+
     text-align: center;
+
     margin-bottom: 2.62em;
+
     display: block;
+
 }
+
+
 
 .common-input {
+
     display: flex;
+
     padding: 1.5rem;
+
     align-items: center;
+
     border: 1px solid #CBD5E0 !important;
+
     background: #F8F8F8 !important;
+
     height: 3.625em !important;
+
     max-width: 32.5rem !important;
+
     margin: 0 auto;
+
     color: #262626;
+
     leading-trim: both;
+
     text-edge: cap;
+
     font-size: 0.875rem;
+
     font-style: normal;
+
     font-weight: 500;
+
     line-height: 1.75rem;
+
     border-radius: 0 !important;
+
 }
+
+
 
 .common-bttn {
+
     display: flex !important;
+
     width: 32.5rem;
+
     padding: 1.5rem;
+
     justify-content: center;
+
     align-items: center;
+
     height: 3.81rem;
+
     background-color: #FFA726 !important;
+
     color: #fff !important;
+
     leading-trim: both;
+
     text-edge: cap;
+
     font-size: 1.125rem !important;
+
     font-style: normal;
+
     font-weight: 600 !important;
+
     line-height: 1.75rem !important;
+
     margin: 0 auto !important;
+
     margin-top: 1.5rem !important;
+
 }
+
+
 
 .payment-methods-logo {
+
     margin-top: 4rem;
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     gap: 16px;
+
 }
+
+
 
 .common-header-wrap {
+
     width: 100%;
+
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     align-items: center;
+
     gap: 1.88rem;
+
     margin-bottom: 3.88rem;
+
 }
+
+
 
 .common-header-wrap h5 {
+
     color: #323B49;
+
     font-size: 1.25rem;
+
     font-style: normal;
+
     font-weight: 700;
+
     line-height: 1.875rem;
+
 }
+
+
 
 .common-header-wrap hr {
+
     border: 0;
+
     height: 2px;
+
     background-color: #687588 !important;
+
     width: 100%;
+
 }
+
+
 
 .common-header-wrap .txt.active h5 {
+
     color: #FFA726 !important;
+
 }
+
+
 
 .common-header-wrap .txt.active hr {
+
     background-color: #FFA726 !important;
+
 }
+
+
 
 .common-subtitle {
+
     color: #323B49 !important;
+
     font-size: 2.5rem !important;
+
     font-style: normal !important;
+
     font-weight: 700 !important;
+
     line-height: 3rem !important;
+
     margin-bottom: 2.6rem !important;
+
 }
+
+
 
 .common-box {
+
     background: var(--Neutral-50, #FAFAFA);
+
     padding: 2rem;
+
 }
+
+
 
 .delivery-txt {
+
     color: #687588 !important;
+
     font-size: 1.125rem !important;
+
     font-style: normal !important;
+
     font-weight: 400 !important;
+
     line-height: 1.75rem !important;
+
 }
+
+
 
 .adres-details-group {
+
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
-    align-items: center;
+
+    align-items: flex-start!important;
+
     gap: 2rem;
+
     margin-top: 2rem;
+
 }
+
+
 
 .delivery-time-area label,
+
 .example-address label,
+
 .adres-details-group label {
+
     color: #323B49 !important;
+
     font-size: 1.125rem !important;
+
     font-style: normal !important;
+
     font-weight: 700 !important;
+
     line-height: 1.75rem !important;
+
     display: block !important;
+
     margin-bottom: 1rem !important;
+
 }
+
+
 
 .example-address span p {
+
     margin-top: 0.8rem !important;
+
     color: var(--Neutral-600, #687588) !important;
+
     font-size: 1rem !important;
+
     font-style: normal !important;
+
     font-weight: 500 !important;
+
     line-height: 1.5rem !important;
+
     letter-spacing: 0.0125rem !important;
+
 }
+
+
 
 .adres-details-group input {
+
     display: flex !important;
+
     width: 9.8125rem !important;
+
     height: 3.25rem !important;
+
     padding: 0.625rem 0rem 0.625rem 0.875rem !important;
-    align-items: center !important;
+
+    align-items: flex-start !important;
+
     gap: 0.625rem !important;
+
     border: 1px solid #F1F2F4 !important;
+
     background: #FFF !important;
+
     color: var(--Neutral-700, #323B49);
+
     font-size: 1.125rem;
+
     font-style: normal;
+
     font-weight: 500;
+
     line-height: 1.75rem;
+
 }
+
+
 
 .adres-details-group input:focus-within {
+
     border-color: #55C790 !important;
+
 }
+
+
 
 .main-grid {
+
     display: grid;
+
     grid-template-columns: repeat(12, 1fr);
+
     gap: 1.88rem;
+
 }
+
+
 
 .left-sidee {
+
     grid-column: span 7;
+
 }
+
+
 
 .right-sidee {
+
     grid-column: span 5;
+
 }
+
+
 
 .oak-order-review {
+
     background: var(--Neutral-50, #FAFAFA);
+
     padding: 2rem !important;
+
     margin-top: 5.5rem !important;
+
 }
+
+
 
 .example-address {
+
     margin-top: 2.62rem !important;
+
 }
+
+
 
 .delivery-time-area {
+
     display: grid;
+
     grid-template-columns: repeat(2, 1fr);
-    align-items: center;
+
+    align-items: flex-start!important;
+
     gap: 2rem;
+
     margin-top: 2rem;
+
 }
+
+
 
 .delivery-time-area select,
+
 .delivery-time-area input {
+
     display: flex !important;
+
     width: 100% !important;
+
     height: 3.25rem !important;
+
     padding: 0.625rem 0rem 0.625rem 0.875rem !important;
-    align-items: center !important;
+
+    align-items: flex-start !important;
+
     gap: 0.625rem !important;
+
     border: 1px solid #F1F2F4 !important;
+
     background: #FFF !important;
+
     color: #323B49 !important;
+
     font-size: 1.125rem !important;
+
     font-style: normal !important;
+
     font-weight: 500 !important;
+
     line-height: 1.75rem !important;
+
 }
+
+
 
 .multi-step-buttons {
+
     margin-top: 2rem !important;
+
     width: 100%;
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
 }
+
+
 
 .multi-step-buttons .next-btn,
-.multi-step-buttons .prev-btn, #place_order {
+
+.multi-step-buttons .prev-btn,
+#place_order {
+
     display: flex !important;
+
     padding: 0.75rem 1rem;
+
     justify-content: center;
+
     align-items: center;
+
     height: 3.25rem;
+
     background-color: #FFA726 !important;
+
     color: #fff !important;
+
     leading-trim: both;
+
     text-edge: cap;
+
     font-size: 1.125rem !important;
+
     font-style: normal;
+
     font-weight: 600 !important;
+
     line-height: 1.75rem !important;
+
     gap: 0.62rem !important;
+
 }
+
+
 
 .multi-step-buttons .prev-btn {
+
     background-color: #323B49 !important;
+
 }
+
+
 
 #place_order:after {
+
     content: '';
+
     display: inline-block;
+
     width: 24px;
+
     height: 24px;
+
     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14 5L21 12M21 12L14 19M21 12L3 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>') no-repeat;
-    background-size: cover; /* Adjust as needed */
+
+    background-size: cover;
+    /* Adjust as needed */
+
 }
+
+
 
 .shop_table.woocommerce-checkout-review-order-table tr td {
+
     padding-left: 0 !important;
+
     padding-right: 0 !important;
+
     text-align: right !important;
+
 }
+
+
 
 .payment-logo-2 {
+
     margin-top: 1rem !important;
+
     justify-content: flex-start !important;
+
 }
+
+
 
 .common-labell {
+
     color: #323B49 !important;
+
     font-size: 1.125rem !important;
+
     font-style: normal !important;
+
     font-weight: 700 !important;
+
     line-height: 1.75rem !important;
+
     display: block !important;
+
     margin-bottom: 1rem !important;
+
 }
+
+
 
 .common-inputt {
+
     display: flex !important;
+
     width: 100% !important;
+
     height: 3.25rem !important;
+
     padding: 0.625rem 0rem 0.625rem 0.875rem !important;
+
     align-items: center !important;
+
     gap: 0.625rem !important;
+
     border: 1px solid #F1F2F4 !important;
+
     background: #FFF !important;
+
     color: #323B49 !important;
+
     font-size: 1.125rem !important;
+
     font-style: normal !important;
+
     font-weight: 500 !important;
+
     line-height: 1.75rem !important;
+
 }
+
+
 
 .name-filed {
+
     margin-top: 2rem !important;
+
     width: 100%;
+
     display: grid;
+
     grid-template-columns: repeat(2, 1fr);
+
     align-items: center;
+
     gap: 1.5rem;
+
 }
+
+
 
 .different-billing-address {
+
     display: flex !important;
+
     width: 100% !important;
+
     padding: 0.875rem !important;
+
     align-items: center !important;
+
     gap: 7.0625rem !important;
+
     background: var(--White, #FFF) !important;
+
     margin-bottom: 2rem !important;
+
     gap: 10px !important;
+
 }
+
+
 
 .different-billing-address label {
+
     color: var(--Neutral-600, #687588) !important;
+
     font-size: 1.125rem !important;
+
     font-style: normal !important;
+
     font-weight: 400 !important;
+
     line-height: 1.75rem !important;
+
 }
+
+
 
 .white-box {
+
     background-color: #fff !important;
+
     padding: 1.25rem !important;
+
 }
+
+
 
 .white-box p {
-    color: var(--Neutral-600, #687588); 
+
+    color: var(--Neutral-600, #687588);
+
     font-family: "Work Sans";
+
     font-size: 1.125rem;
+
     font-style: normal;
+
     font-weight: 400;
-    line-height: 1.75rem; 
+
+    line-height: 1.75rem;
+
 }
+
+
 
 .white-box ul {
+
     list-style-type: none;
-    padding-left: 0!important;
+
+    padding-left: 0 !important;
+
 }
-.white-box ul li{
-    color: var(--Neutral-600, #687588);  
-    font-size: 1.125rem!important;
-    font-style: normal!important;
-    font-weight: 400!important;
-    line-height: 1.75rem; 
+
+.white-box ul li {
+
+    color: var(--Neutral-600, #687588);
+
+    font-size: 1.125rem !important;
+
+    font-style: normal !important;
+
+    font-weight: 400 !important;
+
+    line-height: 1.75rem;
+
     margin-bottom: 0.5rem;
+
     display: flex;
+
     align-items: center;
+
     gap: 10px;
+
 }
+
 .woocommerce-invalid .oak-required-field {
-    border-color: #f44336!important;
+
+    border-color: #f44336 !important;
+
 }
+
+
 
 .woocommerce-invalid span.error-message {
+
     color: #f44336;
+
 }
+
 .woocommerce-order.checkout-success {
+
     text-align: center;
+
 }
+
+
 
 .success-order-check img {
+
     margin: 0 auto;
+
     width: 100px;
+
 }
+
+
 
 .success-order-check {
+
     margin-bottom: 50px;
+
 }
+
+
 
 .woocommerce-order.checkout-success h3 {
+
     font-size: 50px;
+
     font-weight: 700;
+
 }
+
+
 
 .woocommerce-order.checkout-success p {
+
     font-size: 25px;
+
     margin-bottom: 50px;
+
     max-width: 800px;
+
     margin-left: auto;
+
     margin-right: auto;
+    margin-top: 1.5rem !important;
+    color: var(--Neutral-700, #323B49)!important;
+    font-size: 24px!important;
+    font-style: normal!important;
+    font-weight: 400!important;
+    line-height: normal!important;
+
 }
+
 .common-header-wrap .passed-step svg {
+
     display: inline-block;
+
     position: relative;
-    top: 10px;
+
     margin-left: 10px;
+
 }
+
+
 
 .common-header-wrap .passed-step h5 {
+
     color: #36B37E;
+
 }
+
+
 
 .common-header-wrap .passed-step hr {
-    background-color: #36B37E!important;
+
+    background-color: #36B37E !important;
+
 }
 
+a#pm-step-prev-btn {
+
+    margin-top: -8em;
+
+    margin-left: 1em;
+
+}
+
+
+
 @media only screen and (max-width: 900px) {
-    .enter-email-area{
-        padding: 0 1.5rem!important;
+
+    .enter-email-area {
+
+        padding: 0 1.5rem !important;
+
     }
+
+
 
     .name-filed,
-    .delivery-time-area,
-    .adres-details-group,
-    .common-header-wrap,
-    .main-grid { 
-        grid-template-columns: repeat(1, 1fr)!important; 
-    } 
 
-    .checkout-delivery-step{
-        padding-left: 1rem!important;
-        padding-right: 1rem!important;
+    .delivery-time-area,
+
+    .adres-details-group,
+
+    .common-header-wrap,
+
+    .main-grid {
+
+        grid-template-columns: repeat(1, 1fr) !important;
+
     }
+
+
+
+    .checkout-delivery-step {
+
+        padding-left: 1rem !important;
+
+        padding-right: 1rem !important;
+
+    }
+
+
 
     .common-subtitle {
+
         font-size: 2rem !important;
+
         margin-bottom: 1.6rem !important;
+
     }
 
-    .adres-details-group input{
-        width: 100%!important;
+
+
+    .adres-details-group input {
+
+        width: 100% !important;
+
     }
 
-    .multi-step-buttons{
-        flex-direction: column!important;
-        gap: 1rem!important;
+
+
+    .multi-step-buttons {
+
+        flex-direction: column !important;
+
+        gap: 1rem !important;
+
     }
+
     .multi-step-buttons .next-btn,
-    .multi-step-buttons .prev-btn{
-        width: 100%!important;
+
+    .multi-step-buttons .prev-btn {
+
+        width: 100% !important;
+
     }
+
 }
