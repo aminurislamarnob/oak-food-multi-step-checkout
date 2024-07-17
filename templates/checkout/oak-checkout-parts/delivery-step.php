@@ -18,14 +18,14 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 				<div class="form-row">
 					<label for="billing_postcode"><?php echo esc_html__('Postal Code', 'oak-food-multi-step-checkout'); ?></label>
 					<span class="woocommerce-input-wrapper">
-						<input type="text" class="input-text postcode oak-required-field" name="billing_postcode" id="billing_postcode" value="<?php echo esc_attr(Helpers::get_wc_session_value_by_key('postcode')); ?>">
+						<input type="text" class="input-text postcode oak-required-field" name="billing_postcode" id="billing_postcode" value="<?php echo esc_attr(Helpers::get_wc_session_value_by_key('postcode', 'billing_postcode')); ?>">
 					</span>
 					<span class="error-message"></span>
 				</div>
 				<div class="form-row">
 					<label for="billing_house_no"><?php echo esc_html__('House No.', 'oak-food-multi-step-checkout'); ?></label>
 					<span class="woocommerce-input-wrapper">
-						<input type="text" class="input-text oak-required-field house_no" name="billing_house_no" id="billing_house_no" value="<?php echo esc_attr(Helpers::get_wc_session_value_by_key('billing_house_no')); ?>">
+						<input type="text" class="input-text oak-required-field house_no" name="billing_house_no" id="billing_house_no" value="<?php echo esc_attr(Helpers::get_wc_session_value_by_key('billing_house_no', 'billing_house_no')); ?>">
 					</span>
 					<span class="error-message"></span>
 				</div>
@@ -33,7 +33,7 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 				<div class="form-row">
 					<label for="street_address"><?php echo esc_html__('Streed Add', 'oak-food-multi-step-checkout'); ?></label>
 					<span class="woocommerce-input-wrapper">
-						<input type="text" class="input-text street_address oak-required-field" name="street_address" id="street_address" value="<?php echo esc_attr(Helpers::get_wc_session_value_by_key('street_address')); ?>">
+						<input type="text" class="input-text street_address oak-required-field" name="street_address" id="street_address" value="<?php echo esc_attr(Helpers::get_wc_session_value_by_key('street_address', 'billing_address_1')); ?>">
 					</span>
 					<span class="error-message"></span>
 				</div>
@@ -41,7 +41,7 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 				<div class="form-row billing-address-wrap">
 					<label for="billing_address_1"><?php echo esc_html__('Address', 'oak-food-multi-step-checkout'); ?></label>
 					<span class="woocommerce-input-wrapper">
-						<input type="text" class="input-text billing_address" name="billing_address_1" id="billing_address_1" value="<?php echo esc_attr(Helpers::get_wc_session_value_by_key('billing_address')); ?>">
+						<input type="text" class="input-text billing_address" name="billing_address_1" id="billing_address_1" value="<?php echo esc_attr(Helpers::get_wc_session_value_by_key('billing_address', 'billing_address_2')); ?>">
 					</span>
 					<span class="error-message"></span>
 				</div>
@@ -60,7 +60,7 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 				<div class="form-row form-row-first">
 					<label for="delivery_date"><?php echo esc_html__('Delivery Date', 'oak-food-multi-step-checkout'); ?></label>
 					<span class="woocommerce-input-wrapper">
-						<input type="text" class="input-text oak-required-field" name="delivery_date" id="delivery_date" value="<?php echo esc_attr(Helpers::get_wc_session_value_by_key('delivery_date')); ?>">
+						<input type="text" class="input-text oak-required-field" name="delivery_date" id="delivery_date" value="<?php echo esc_attr(Helpers::get_wc_session_value_by_key('delivery_date', 'delivery_date')); ?>">
 					</span>
 					<span class="error-message"></span>
 				</div>
@@ -69,7 +69,7 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 					<span class="woocommerce-input-wrapper common-inputt">
 						<select name="delivery_time" id="delivery_time" class="common-inputt">
 							<?php foreach (Helpers::get_delivery_times() as $key => $value) { ?>
-								<option value="<?php echo esc_attr($key); ?>" <?php echo Helpers::get_wc_session_value_by_key('delivery_time') === $key ? 'selected' : ''; ?>><?php echo esc_html($value); ?></option>
+								<option value="<?php echo esc_attr($key); ?>" <?php echo Helpers::get_wc_session_value_by_key('delivery_time', 'delivery_time') === $key ? 'selected' : ''; ?>><?php echo esc_html($value); ?></option>
 							<?php } ?>
 						</select>
 					</span>

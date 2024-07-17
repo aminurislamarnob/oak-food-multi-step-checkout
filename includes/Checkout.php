@@ -340,7 +340,7 @@ class Checkout {
 		// Retrieve custom data from session.
 		$billing_email             = WC()->session->get( 'billing_email' );
 		$postcode                  = WC()->session->get( 'postcode' );
-		$street_address           = WC()->session->get( 'street_address' );
+		$street_address            = WC()->session->get( 'street_address' );
 		$billing_address           = WC()->session->get( 'billing_address' );
 		$first_name                = WC()->session->get( 'first_name' );
 		$last_name                 = WC()->session->get( 'last_name' );
@@ -351,55 +351,79 @@ class Checkout {
 		$delivery_time             = WC()->session->get( 'delivery_time' );
 		$custom_password           = WC()->session->get( 'custom_password' );
 		$different_billing_address = WC()->session->get( 'different_billing_address' );
-
+	
+		$user_id = get_current_user_id();
+	
+		// Update billing information
 		if ( ! empty( $billing_email ) ) {
 			$order->set_billing_email( $billing_email );
+			if ( is_user_logged_in() ) {
+				update_user_meta( $user_id, 'billing_email', $billing_email );
+			}
 		}
-
+	
 		if ( ! empty( $postcode ) ) {
 			$order->set_billing_postcode( $postcode );
+			if ( is_user_logged_in() ) {
+				update_user_meta( $user_id, 'billing_postcode', $postcode );
+			}
 		}
-
+	
 		if ( ! empty( $street_address ) ) {
 			$order->set_billing_address_1( $street_address );
+			if ( is_user_logged_in() ) {
+				update_user_meta( $user_id, 'billing_address_1', $street_address );
+			}
 		}
-
+	
 		if ( ! empty( $billing_address ) ) {
 			$order->set_billing_address_2( $billing_address );
+			if ( is_user_logged_in() ) {
+				update_user_meta( $user_id, 'billing_address_2', $billing_address );
+			}
 		}
-
+	
 		if ( ! empty( $first_name ) ) {
 			$order->set_billing_first_name( $first_name );
+			if ( is_user_logged_in() ) {
+				update_user_meta( $user_id, 'billing_first_name', $first_name );
+			}
 		}
-
+	
 		if ( ! empty( $last_name ) ) {
 			$order->set_billing_last_name( $last_name );
+			if ( is_user_logged_in() ) {
+				update_user_meta( $user_id, 'billing_last_name', $last_name );
+			}
 		}
-
+	
 		if ( ! empty( $phone ) ) {
 			$order->set_billing_phone( $phone );
+			if ( is_user_logged_in() ) {
+				update_user_meta( $user_id, 'billing_phone', $phone );
+			}
 		}
-
+	
 		if ( ! empty( $delivery_type ) ) {
 			$order->update_meta_data( 'delivery_type', sanitize_text_field( $delivery_type ) );
 		}
-
+	
 		if ( ! empty( $billing_house_no ) ) {
 			$order->update_meta_data( 'billing_house_no', sanitize_text_field( $billing_house_no ) );
 		}
-
+	
 		if ( ! empty( $delivery_date ) ) {
 			$order->update_meta_data( 'delivery_date', sanitize_text_field( $delivery_date ) );
 		}
-
+	
 		if ( ! empty( $delivery_time ) ) {
 			$order->update_meta_data( 'delivery_time', sanitize_text_field( $delivery_time ) );
 		}
-
+	
 		if ( ! empty( $different_billing_address ) ) {
 			$order->update_meta_data( 'different_billing_address', sanitize_text_field( $different_billing_address ) );
-
-			//Set shipping address
+	
+			// Set shipping address
 			$shipping_postcode = WC()->session->get( 'shipping_postcode' );
 			$shipping_house_no = WC()->session->get( 'shipping_house_no' );
 			$shipping_street_address = WC()->session->get( 'shipping_street_address' );
@@ -412,26 +436,44 @@ class Checkout {
 	
 			if ( ! empty( $shipping_postcode ) ) {
 				$order->set_shipping_postcode( $shipping_postcode );
+				if ( is_user_logged_in() ) {
+					update_user_meta( $user_id, 'shipping_postcode', $shipping_postcode );
+				}
 			}
 	
 			if ( ! empty( $shipping_street_address ) ) {
 				$order->set_shipping_address_1( $shipping_street_address );
+				if ( is_user_logged_in() ) {
+					update_user_meta( $user_id, 'shipping_address_1', $shipping_street_address );
+				}
 			}
 	
 			if ( ! empty( $shipping_address_1 ) ) {
 				$order->set_shipping_address_2( $shipping_address_1 );
+				if ( is_user_logged_in() ) {
+					update_user_meta( $user_id, 'shipping_address_2', $shipping_address_1 );
+				}
 			}
 	
 			if ( ! empty( $shipping_first_name ) ) {
 				$order->set_shipping_first_name( $shipping_first_name );
+				if ( is_user_logged_in() ) {
+					update_user_meta( $user_id, 'shipping_first_name', $shipping_first_name );
+				}
 			}
 	
 			if ( ! empty( $shipping_last_name ) ) {
 				$order->set_shipping_last_name( $shipping_last_name );
+				if ( is_user_logged_in() ) {
+					update_user_meta( $user_id, 'shipping_last_name', $shipping_last_name );
+				}
 			}
 	
 			if ( ! empty( $shipping_phone ) ) {
 				$order->set_shipping_phone( $shipping_phone );
+				if ( is_user_logged_in() ) {
+					update_user_meta( $user_id, 'shipping_phone', $shipping_phone );
+				}
 			}
 	
 			if ( ! empty( $shipping_delivery_date ) ) {

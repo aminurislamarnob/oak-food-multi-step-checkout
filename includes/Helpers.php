@@ -34,14 +34,19 @@ class Helpers {
 	 * @param string $key session key name.
 	 * @return string
 	 */
-	public static function get_wc_session_value_by_key( $key ) {
-		if ( WC()->session->has_session() ) {
-			$value = WC()->session->get( $key );
-
-			if ( $value ) {
-				return $value;
-			} else {
-				return '';
+	public static function get_wc_session_value_by_key( $key, $user_meta_key='' ) {
+		if( is_user_logged_in() ){
+			$user_id = get_current_user_id();
+			return get_user_meta($user_id, $user_meta_key, true);
+		}else{
+			if ( WC()->session->has_session() ) {
+				$value = WC()->session->get( $key );
+	
+				if ( $value ) {
+					return $value;
+				} else {
+					return '';
+				}
 			}
 		}
 		return '';

@@ -27,14 +27,14 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 					<div class="form-row form-row-first">
 						<label for="first_name" class="common-labell"><?php echo esc_html__('First Name', 'oak-food-multi-step-checkout'); ?></label>
 						<span class="woocommerce-input-wrapper">
-							<input type="text" class="input-text oak-required-field common-inputt first_name" name="first_name" id="first_name" placeholder="First name here" value="<?php echo esc_attr(Helpers::get_wc_session_value_by_key('first_name')); ?>">
+							<input type="text" class="input-text oak-required-field common-inputt first_name" name="first_name" id="first_name" placeholder="First name here" value="<?php echo esc_attr(Helpers::get_wc_session_value_by_key('first_name', 'billing_first_name')); ?>">
 						</span>
 						<span class="error-message"></span>
 					</div>
 					<div class="form-row form-row-last">
 						<label for="last_name" class="common-labell"><?php echo esc_html__('Last Name', 'oak-food-multi-step-checkout'); ?></label>
 						<span class="woocommerce-input-wrapper">
-							<input type="text" class="input-text oak-required-field common-inputt last_name" name="last_name" id="last_name" placeholder="Last name here" value="<?php echo esc_attr(Helpers::get_wc_session_value_by_key('last_name')); ?>">
+							<input type="text" class="input-text oak-required-field common-inputt last_name" name="last_name" id="last_name" placeholder="Last name here" value="<?php echo esc_attr(Helpers::get_wc_session_value_by_key('last_name', 'billing_last_name')); ?>">
 						</span>
 						<span class="error-message"></span>
 					</div>
@@ -43,7 +43,7 @@ use PluginizeLab\OakFoodMultiStepCheckout\Helpers;
 					<div class="form-row form-row-first">
 						<label for="phone" class="common-labell"><?php echo esc_html__('Phone Number', 'oak-food-multi-step-checkout'); ?></label>
 						<span class="woocommerce-input-wrapper">
-							<input type="text" class="input-text oak-required-field common-inputt phone" name="phone" id="phone" placeholder="" value="<?php echo esc_attr(Helpers::get_wc_session_value_by_key('phone')); ?>">
+							<input type="text" class="input-text oak-required-field common-inputt phone" name="phone" id="phone" placeholder="" value="<?php echo esc_attr(Helpers::get_wc_session_value_by_key('phone', 'billing_phone')); ?>">
 						</span>
 						<span class="error-message"></span>
 					</div>
